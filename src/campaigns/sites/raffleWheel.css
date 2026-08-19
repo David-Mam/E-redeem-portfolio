@@ -1,0 +1,61 @@
+/*
+ * Deliberately minimal, semantic styling for the raffle wheel.
+ * This is a functional placeholder — swap the plain classes below for
+ * the Figma "Spin the Wheel" kit assets/CSS. Structure to keep:
+ *   .raffle-wheel-wrap    — square container, holds the wheel + pointer
+ *   .raffle-wheel         — the rotating circle (JS sets its transform/transition)
+ *   .raffle-wheel__segment / __label — one per slot, evenly spaced by angle
+ *   .raffle-wheel__pointer — fixed indicator at the top, does not rotate
+ *   .raffle-controls      — Spin / Stop button row
+ */
+
+.raffle-wheel-wrap {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+}
+
+.raffle-wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid var(--raffle-ring-color, #241f30);
+  position: relative;
+}
+
+.raffle-wheel__segment {
+  position: absolute;
+  inset: 0;
+}
+
+.raffle-wheel__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  font-family: var(--raffle-label-font, inherit);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--raffle-label-color, #241f30);
+  transform-origin: 0 0;
+}
+
+.raffle-wheel__pointer {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 20px solid var(--raffle-pointer-color, #241f30);
+  z-index: 2;
+}
+
+.raffle-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}

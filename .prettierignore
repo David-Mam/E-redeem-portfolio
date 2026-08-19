@@ -1,0 +1,14 @@
+node_modules
+dist
+.output
+.vinxi
+pnpm-lock.yaml
+package-lock.json
+bun.lock
+routeTree.gen.ts
+
+# Vendored verbatim from the e-redeem-frontend repo — kept byte-identical so a
+# re-sync is a straight file copy. See the alias block at the end of styles.css.
+src/shared
+src/systems
+src/campaigns

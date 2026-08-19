@@ -1,0 +1,8 @@
+{
+  "name": "E-Redeem Portfolio Builder",
+  "description": "Interactive consumer loyalty and engagement platform portfolio builder by Excite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
