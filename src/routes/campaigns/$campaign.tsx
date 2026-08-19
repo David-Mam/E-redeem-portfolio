@@ -1,7 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, CheckCircle2, Play } from "lucide-react";
 
 import { CORAL, LIME, campaigns, getCampaign } from "../../lib/site-data";
+import RedeemModal, { type RedeemSubmission } from "@/systems/redeem/components/RedeemModal";
+import WinToast from "@/systems/redeem/components/WinToast";
+import QuizModal from "@/campaigns/sites/QuizModal";
+import RaffleModal from "@/campaigns/sites/RaffleModal";
+import PollModal from "@/campaigns/sites/PollModal";
+import VoteModal from "@/campaigns/sites/VoteModal";
+import SurveyModal from "@/campaigns/sites/SurveyModal";
 
 export const Route = createFileRoute("/campaigns/$campaign")({
   loader: ({ params }) => {
@@ -16,6 +24,15 @@ function CampaignPage() {
   // Guaranteed present by the loader's notFound guard above.
   const campaign = getCampaign(slug)!;
   const others = campaigns.filter((c) => c.slug !== campaign.slug);
+
+  const [demoOpen, setDemoOpen] = useState(false);
+  const [prize, setPrize] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!prize) return;
+    const timer = setTimeout(() => setPrize(null), 4500);
+    return () => clearTimeout(timer);
+  }, [prize]);
 
   return (
     <section className="bg-white">
@@ -66,7 +83,7 @@ function CampaignPage() {
           ))}
         </ul>
 
-        <div className="mt-12 flex flex-wrap gap-3">
+        <div className="mt-12 flex flex-wrap items-center gap-3">
           <Link
             to="/contacts"
             className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md hover:brightness-110"
@@ -75,13 +92,16 @@ function CampaignPage() {
             Launch this campaign
             <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link
-            to="/case-studies"
-            className="inline-flex items-center gap-2 rounded-md border-2 bg-white px-6 py-3 text-sm font-semibold transition-colors hover:bg-slate-50"
+          <button
+            type="button"
+            id="see-in-action-btn"
+            onClick={() => setDemoOpen(true)}
+            className="inline-flex cursor-pointer items-center gap-2 rounded-md border-2 bg-white px-6 py-3 text-sm font-semibold transition-all hover:bg-slate-50 hover:shadow-sm"
             style={{ borderColor: CORAL, color: CORAL }}
           >
+            <Play className="h-4 w-4 fill-current" />
             See it in action
-          </Link>
+          </button>
         </div>
 
         <div className="mt-16 border-t border-slate-200 pt-10">
@@ -103,6 +123,35 @@ function CampaignPage() {
           </div>
         </div>
       </div>
+
+      {/* Interactive campaign demo modals launched via 'See it in action' */}
+      {campaign.demo === "code" && (
+        <RedeemModal
+          isOpen={demoOpen}
+          onClose={() => setDemoOpen(false)}
+          onSubmit={({ firstName, code }: RedeemSubmission) => {
+            setDemoOpen(false);
+            setPrize(`Thanks ${firstName} — code ${code} won ₦200 airtime.`);
+          }}
+        />
+      )}
+      {campaign.demo === "quiz" && (
+        <QuizModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
+      )}
+      {campaign.demo === "raffle" && (
+        <RaffleModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
+      )}
+      {campaign.demo === "poll" && (
+        <PollModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
+      )}
+      {campaign.demo === "vote" && (
+        <VoteModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
+      )}
+      {campaign.demo === "survey" && (
+        <SurveyModal isOpen={demoOpen} onClose={() => setDemoOpen(false)} />
+      )}
+
+      <WinToast visible={!!prize} prizeName={prize} onClose={() => setPrize(null)} />
     </section>
   );
 }

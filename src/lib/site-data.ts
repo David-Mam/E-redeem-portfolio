@@ -29,8 +29,8 @@ export const LIME = "#A8E10C";
 
 /* ---------------- Interactive campaigns ---------------- */
 
-/** Campaigns with a live, playable demo modal wired into the nav dropdown. */
-export type DemoKind = "code" | "quiz" | "raffle";
+/** Campaigns with a live, playable demo modal launched on their detail page. */
+export type DemoKind = "code" | "quiz" | "raffle" | "poll" | "vote" | "survey";
 
 export type Campaign = {
   slug: string;
@@ -43,8 +43,7 @@ export type Campaign = {
   /** Key selling points shown on the campaign's own page. */
   points: string[];
   /**
-   * Set when this campaign has a playable demo. The nav dropdown renders these
-   * entries as buttons that open the demo in place instead of navigating.
+   * Set when this campaign has a playable demo modal available on its detail page.
    */
   demo?: DemoKind;
 };
@@ -76,6 +75,7 @@ export const campaigns: Campaign[] = [
       "Reward respondents with airtime, data or gift cards",
       "Live results with demographic breakdowns",
     ],
+    demo: "poll",
   },
   {
     slug: "vote",
@@ -89,6 +89,7 @@ export const campaigns: Campaign[] = [
       "Anti-fraud vote validation",
       "Real-time tallies and public leaderboards",
     ],
+    demo: "vote",
   },
   {
     slug: "surveys",
@@ -102,6 +103,7 @@ export const campaigns: Campaign[] = [
       "Completion rewards that lift response rates",
       "Demographic, behavioural and geographic capture",
     ],
+    demo: "survey",
   },
   {
     slug: "quizzes",
