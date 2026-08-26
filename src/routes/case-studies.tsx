@@ -3,6 +3,11 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 import { CORAL, LIME, caseStudies } from "../lib/site-data";
 import { Eyebrow } from "../components/site-sections";
+import {
+  ScrollReveal,
+  ScrollStaggerContainer,
+  ScrollStaggerItem,
+} from "../components/scroll-animations";
 
 export const Route = createFileRoute("/case-studies")({
   component: CaseStudies,
@@ -10,9 +15,9 @@ export const Route = createFileRoute("/case-studies")({
 
 function CaseStudies() {
   return (
-    <section className="bg-white">
+    <section className="bg-white overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="max-w-3xl">
+        <ScrollReveal direction="up" distance={16} className="max-w-3xl">
           <Eyebrow>Case Studies</Eyebrow>
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Proven campaigns for household brands.
@@ -21,35 +26,39 @@ function CaseStudies() {
             Eight years of consumer engagement expertise — deployed for FMCG, spirits and telco
             category leaders across Nigeria.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <ScrollStaggerContainer staggerDelay={0.09} className="mt-12 grid gap-6 lg:grid-cols-3">
           {caseStudies.map((c) => (
-            <div
-              key={c.brand}
-              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)]"
-            >
-              <div className="flex items-center justify-between">
-                <span
-                  className="grid h-12 w-12 place-items-center rounded-xl"
-                  style={{ background: `${CORAL}1a` }}
-                >
-                  <c.icon className="h-6 w-6" style={{ color: CORAL }} />
-                </span>
-                <span className="text-3xl font-bold tracking-tight" style={{ color: CORAL }}>
-                  {c.stat}
-                </span>
+            <ScrollStaggerItem key={c.brand} distance={18}>
+              <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)]">
+                <div className="flex items-center justify-between">
+                  <span
+                    className="grid h-12 w-12 place-items-center rounded-xl transition-transform duration-200 hover:scale-105"
+                    style={{ background: `${CORAL}1a` }}
+                  >
+                    <c.icon className="h-6 w-6" style={{ color: CORAL }} />
+                  </span>
+                  <span className="text-3xl font-bold tracking-tight" style={{ color: CORAL }}>
+                    {c.stat}
+                  </span>
+                </div>
+                <h2 className="mt-6 text-lg font-bold tracking-tight text-slate-900">{c.brand}</h2>
+                <div className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+                  {c.label}
+                </div>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-600">{c.blurb}</p>
               </div>
-              <h2 className="mt-6 text-lg font-bold tracking-tight text-slate-900">{c.brand}</h2>
-              <div className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-                {c.label}
-              </div>
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-600">{c.blurb}</p>
-            </div>
+            </ScrollStaggerItem>
           ))}
-        </div>
+        </ScrollStaggerContainer>
 
-        <div className="mt-12 flex items-center gap-2 border-t border-dashed border-slate-200 pt-6">
+        <ScrollReveal
+          direction="up"
+          distance={12}
+          delay={0.1}
+          className="mt-12 flex items-center gap-2 border-t border-dashed border-slate-200 pt-6"
+        >
           <span
             className="grid h-6 w-6 place-items-center rounded-full"
             style={{ background: LIME }}
@@ -59,9 +68,13 @@ function CaseStudies() {
           <span className="text-xs font-semibold uppercase tracking-widest text-slate-600">
             Verified deployments · 2019 – 2026
           </span>
-        </div>
+        </ScrollReveal>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-slate-900 p-8 sm:p-10">
+        <ScrollReveal
+          direction="up"
+          distance={18}
+          className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-slate-900 p-8 sm:p-10"
+        >
           <div className="max-w-xl">
             <h2 className="text-2xl font-bold tracking-tight text-white">
               Want results like these?
@@ -78,7 +91,7 @@ function CaseStudies() {
             Start a conversation
             <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&family=Space+Grotesk:wght@500;600;700&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -5,27 +6,46 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
+ * E-Redeem Brand System & UX Design System definition (Authoritative Style Scape Specification).
  *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
+ * Section 1: Color Tokens
+ * - Coral (Primary Action): #FF5E3A
+ * - Lime (Accent Only - Never large fill or primary CTA): #A8E10C
+ * - Ink (Primary Text & Dark Surfaces): #14171A
+ * - Slate (Secondary Text): #5B6470
+ * - Page Background: #F7F8F5
+ * - Surface / Card Background: #FFFFFF
+ * - Border / Divider: #E4E7E9
+ * - Error: #D64545
  *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
+ * Section 2: Typography
+ * - Display / Headlines / Stats: Space Grotesk
+ * - Body / Forms / UI: Inter
  *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Section 3 & 4: Spacing (8px scale) & Corner Radius Scale
+ * - Input / Tag: 4px
+ * - Button: 8px
+ * - Card: 12px
+ * - Modal: 20px
+ * - Avatar / Icon: Full (9999px)
  */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-headline: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-input: 4px;
+  --radius-button: 8px;
+  --radius-card: 12px;
+  --radius-modal: 20px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -46,103 +66,162 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-coral: #FF5E3A;
+  --color-lime: #A8E10C;
+  --color-ink: #14171A;
+  --color-slate: #5B6470;
+  --color-brand-border: #E4E7E9;
+  --color-brand-bg: #F7F8F5;
+  --color-brand-error: #D64545;
 }
 
 :root {
-  --radius: 1.25rem;
+  --radius: 12px;
   /* Base #F7F8F5 */
-  --background: oklch(0.975 0.004 120);
-  --foreground: oklch(0.19 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.19 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.19 0 0);
+  --background: #F7F8F5;
+  /* Ink #14171A */
+  --foreground: #14171A;
+  --card: #FFFFFF;
+  --card-foreground: #14171A;
+  --popover: #FFFFFF;
+  --popover-foreground: #14171A;
   /* Coral #FF5E3A */
-  --primary: oklch(0.68 0.2 35);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.94 0.004 120);
-  --secondary-foreground: oklch(0.19 0 0);
-  --muted: oklch(0.94 0.004 120);
-  --muted-foreground: oklch(0.45 0 0);
-  /* Lime #A8E10C */
-  --accent: oklch(0.87 0.22 125);
-  --accent-foreground: oklch(0.19 0 0);
-  --destructive: oklch(0.58 0.24 27);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.9 0.003 120);
-  --input: oklch(0.9 0.003 120);
-  --ring: oklch(0.68 0.2 35);
-  --ink: oklch(0.19 0 0);
-  --surface: oklch(0.975 0.004 120);
-  --surface-2: oklch(0.94 0.004 120);
-  --lime: oklch(0.87 0.22 125);
-  --coral: oklch(0.68 0.2 35);
-  --muted-ink: oklch(0.45 0 0);
-  --gradient-hero: linear-gradient(180deg, oklch(0.975 0.004 120) 0%, oklch(0.94 0.004 120) 100%);
-  --shadow-elegant: 0 30px 60px -30px oklch(0.19 0 0 / 0.18);
-  --shadow-soft: 0 10px 30px -12px oklch(0.19 0 0 / 0.1);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --primary: #FF5E3A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F7F8F5;
+  --secondary-foreground: #14171A;
+  /* Slate #5B6470 */
+  --muted: #F7F8F5;
+  --muted-foreground: #5B6470;
+  /* Lime #A8E10C (Accent only) */
+  --accent: #A8E10C;
+  --accent-foreground: #14171A;
+  /* Error #D64545 */
+  --destructive: #D64545;
+  --destructive-foreground: #FFFFFF;
+  /* Border #E4E7E9 */
+  --border: #E4E7E9;
+  --input: #E4E7E9;
+  --ring: #FF5E3A;
+
+  --ink: #14171A;
+  --slate: #5B6470;
+  --surface: #FFFFFF;
+  --surface-2: #F7F8F5;
+  --lime: #A8E10C;
+  --coral: #FF5E3A;
+  --muted-ink: #5B6470;
+
+  --motion-fast: 150ms;
+  --motion-standard: 250ms;
+  --motion-slow: 400ms;
+  --easing-entrance: cubic-bezier(0, 0, 0.2, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: #14171A;
+  --foreground: #F7F8F5;
+  --card: #1E2328;
+  --card-foreground: #F7F8F5;
+  --popover: #1E2328;
+  --popover-foreground: #F7F8F5;
+  --primary: #FF5E3A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #272C33;
+  --secondary-foreground: #F7F8F5;
+  --muted: #272C33;
+  --muted-foreground: #9CA3AF;
+  --accent: #A8E10C;
+  --accent-foreground: #14171A;
+  --destructive: #D64545;
+  --destructive-foreground: #FFFFFF;
+  --border: #2E363E;
+  --input: #2E363E;
+  --ring: #FF5E3A;
 }
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .font-display, .font-headline {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 34px;
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+}
+
+/* ------------------------------------------------------------------------- *
+ * e-redeem campaign modals — token aliases.
+ * Maps onto exact Style Scape color and typography definitions.
+ * ------------------------------------------------------------------------- */
+@theme inline {
+  --color-r-signal: var(--primary); /* coral #FF5E3A — buttons, rings, selected state */
+  --color-r-signal-dark: #E04E2C; /* primary button hover/active (8-10% darker) */
+  --color-r-signal-tint: #FFF2EE; /* pale coral — hover/selected fills */
+  --color-r-reward: var(--accent); /* lime #A8E10C */
+  --color-r-win: #A8E10C; /* lime accent for reward win */
+  --color-r-ink: var(--foreground);
+  --color-r-ink-muted: var(--muted-foreground);
+  --color-r-border: var(--border);
+  --color-r-cloud: var(--background);
+
+  --font-r-display: var(--font-display);
+  --font-r-body: var(--font-sans);
+}
+
+.font-r-display {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+
+/* Wheel chrome */
+.raffle-wheel-wrap {
+  --raffle-ring-color: #14171A;
+  --raffle-label-color: #14171A;
+  --raffle-pointer-color: #FF5E3A;
+  --raffle-prize-fill: #FFF2EE;
+  --raffle-blank-fill: #F7F8F5;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 
 @layer base {
   * {

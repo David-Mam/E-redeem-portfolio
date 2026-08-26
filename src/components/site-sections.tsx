@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { type ReactNode } from "react";
+import { motion } from "framer-motion";
 
 import {
   CORAL,
@@ -10,6 +11,7 @@ import {
   type UseCase,
   type CaseStudy,
 } from "../lib/site-data";
+import { whileHoverCard, whileTapButton } from "../lib/motion-tokens";
 
 /** Small uppercase eyebrow label with a lime accent, used above section titles. */
 export function Eyebrow({ children }: { children: ReactNode }) {
@@ -24,31 +26,36 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 /** Card linking to a single interactive-campaign page. */
 export function CampaignCard({ campaign }: { campaign: Campaign }) {
   return (
-    <Link
-      to="/campaigns/$campaign"
-      params={{ campaign: campaign.slug }}
-      className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)]"
-    >
-      <span className="grid h-11 w-11 place-items-center rounded-xl" style={{ background: LIME }}>
-        <campaign.icon className="h-5 w-5 text-slate-900" />
-      </span>
-      <h3 className="mt-5 text-base font-bold tracking-tight text-slate-900">{campaign.label}</h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{campaign.summary}</p>
-      <span
-        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold"
-        style={{ color: CORAL }}
+    <motion.div whileHover={whileHoverCard} className="h-full">
+      <Link
+        to="/interactive-campaigns/$campaign"
+        params={{ campaign: campaign.slug }}
+        className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 transition-colors duration-200 hover:border-slate-300 hover:shadow-md"
       >
-        Learn more
-        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-      </span>
-    </Link>
+        <span className="grid h-11 w-11 place-items-center rounded-xl" style={{ background: LIME }}>
+          <campaign.icon className="h-5 w-5 text-slate-900" />
+        </span>
+        <h3 className="mt-5 text-base font-bold tracking-tight text-slate-900">{campaign.label}</h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{campaign.summary}</p>
+        <span
+          className="mt-4 inline-flex items-center gap-1 text-sm font-semibold"
+          style={{ color: CORAL }}
+        >
+          Learn more
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </span>
+      </Link>
+    </motion.div>
   );
 }
 
 /** Card describing a single use-case mechanic. */
 export function UseCaseCard({ useCase }: { useCase: UseCase }) {
   return (
-    <div className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <motion.div
+      whileHover={whileHoverCard}
+      className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-slate-300 hover:shadow-md h-full"
+    >
       <span
         className="grid h-12 w-12 shrink-0 place-items-center rounded-xl"
         style={{ background: useCase.tint }}
@@ -62,14 +69,17 @@ export function UseCaseCard({ useCase }: { useCase: UseCase }) {
         <div className="text-base font-bold text-slate-900">{useCase.title}</div>
         <p className="mt-1 text-sm leading-relaxed text-slate-600">{useCase.blurb}</p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 /** Compact row summarising a case-study deployment. */
 export function CaseStudyCard({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5">
+    <motion.div
+      whileHover={whileHoverCard}
+      className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-xs transition-colors hover:border-slate-300 hover:shadow-md h-full"
+    >
       <div className="flex items-start gap-3">
         <span
           className="grid h-10 w-10 shrink-0 place-items-center rounded-lg"
@@ -85,7 +95,7 @@ export function CaseStudyCard({ caseStudy }: { caseStudy: CaseStudy }) {
       <div className="text-2xl font-bold tracking-tight" style={{ color: CORAL }}>
         {caseStudy.stat}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -94,13 +104,14 @@ export function ChannelChips() {
   return (
     <div className="flex flex-wrap gap-2">
       {channels.map((ch) => (
-        <span
+        <motion.span
           key={ch.label}
-          className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700"
+          whileTap={whileTapButton}
+          className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 cursor-default"
         >
           <ch.icon className="h-3.5 w-3.5" style={{ color: CORAL }} />
           {ch.label}
-        </span>
+        </motion.span>
       ))}
     </div>
   );

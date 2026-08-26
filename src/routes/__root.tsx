@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav, Footer } from "../components/site-chrome";
+import { ScrollProgressBar, BackToTopButton } from "../components/scroll-animations";
 
 function NotFoundComponent() {
   return (
@@ -133,13 +134,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased">
+      <ScrollProgressBar />
+      <div className="flex min-h-screen flex-col bg-[#F7F8F5] font-sans text-[#14171A] antialiased">
         <Nav />
         <main className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
         </main>
         <Footer />
+        <BackToTopButton />
       </div>
     </QueryClientProvider>
   );

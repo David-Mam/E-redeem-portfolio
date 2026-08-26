@@ -91,7 +91,7 @@ function CampaignsDropdown() {
           {campaigns.map((c) => (
             <Link
               key={c.slug}
-              to="/campaigns/$campaign"
+              to="/interactive-campaigns/$campaign"
               params={{ campaign: c.slug }}
               role="menuitem"
               className={rowClass}
@@ -101,12 +101,12 @@ function CampaignsDropdown() {
             </Link>
           ))}
           <Link
-            to="/campaigns"
+            to="/interactive-campaigns"
             role="menuitem"
             className="mt-1 flex items-center justify-between rounded-lg border-t border-slate-100 px-3 py-2 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-50"
             onClick={() => setOpen(false)}
           >
-            View all campaigns
+            View all mechanics
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -118,6 +118,7 @@ function CampaignsDropdown() {
 /* ---------------- Nav ---------------- */
 
 const primaryLinks = [
+  { to: "/campaigns", label: "Campaigns" },
   { to: "/case-studies", label: "Case studies" },
   { to: "/use-cases", label: "Use cases" },
   { to: "/contacts", label: "Contacts" },
@@ -131,9 +132,19 @@ const mobileLinkActiveClass =
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { formValues, submitted, handleChange, handleSubmit, resetForm } = useDemoRequestForm();
 
   const closeMobile = () => setMobileOpen(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!demoOpen) {
@@ -143,7 +154,13 @@ export function Nav() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "border-b border-slate-200/80 bg-white/90 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)]"
+            : "border-b border-slate-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+        }`}
+      >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2" onClick={closeMobile}>
             <span
@@ -221,7 +238,7 @@ export function Nav() {
                   return (
                     <Link
                       key={c.slug}
-                      to="/campaigns/$campaign"
+                      to="/interactive-campaigns/$campaign"
                       params={{ campaign: c.slug }}
                       className={mobileRowClass}
                       onClick={closeMobile}
@@ -231,11 +248,11 @@ export function Nav() {
                   );
                 })}
                 <Link
-                  to="/campaigns"
+                  to="/interactive-campaigns"
                   className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
                   onClick={closeMobile}
                 >
-                  View all campaigns
+                  View all mechanics
                 </Link>
               </div>
 
@@ -341,7 +358,12 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/campaigns" className="hover:text-slate-900">
-                  Interactive Campaigns
+                  Client Campaigns
+                </Link>
+              </li>
+              <li>
+                <Link to="/interactive-campaigns" className="hover:text-slate-900">
+                  Interactive Mechanics
                 </Link>
               </li>
               <li>
