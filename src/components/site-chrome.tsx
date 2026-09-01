@@ -125,9 +125,9 @@ const primaryLinks = [
 ] as const;
 
 const mobileLinkClass =
-  "block rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50";
+  "block rounded-lg px-3.5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors";
 const mobileLinkActiveClass =
-  "block rounded-lg bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-900";
+  "block rounded-lg bg-slate-100 px-3.5 py-2.5 text-sm font-semibold text-slate-900";
 
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -169,7 +169,7 @@ export function Nav() {
             >
               E
             </span>
-            <span className="text-lg font-bold tracking-tight">Excite</span>
+            <span className="font-display text-lg font-bold tracking-tight text-slate-900">Excite</span>
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
@@ -205,7 +205,7 @@ export function Nav() {
             </button>
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-700 transition-colors hover:bg-slate-100 md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md text-slate-700 transition-colors hover:bg-slate-100 md:hidden"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
@@ -217,7 +217,7 @@ export function Nav() {
 
         {mobileOpen && (
           <nav className="border-t border-slate-200 bg-white md:hidden">
-            <div className="space-y-1 px-4 py-4 sm:px-6">
+            <div className="space-y-1 px-4 py-4 sm:px-6 max-h-[calc(100vh-4rem)] overflow-y-auto">
               <Link
                 to="/"
                 activeOptions={{ exact: true }}
@@ -234,7 +234,7 @@ export function Nav() {
                 </div>
                 {campaigns.map((c) => {
                   const mobileRowClass =
-                    "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium text-slate-700 hover:bg-slate-50";
+                    "flex w-full items-center gap-3 rounded-lg px-3.5 py-2.5 text-left text-sm font-medium text-slate-700 hover:bg-slate-50";
                   return (
                     <Link
                       key={c.slug}
@@ -249,7 +249,7 @@ export function Nav() {
                 })}
                 <Link
                   to="/interactive-campaigns"
-                  className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+                  className="block rounded-lg px-3.5 py-2.5 text-sm font-semibold text-slate-900 hover:bg-slate-50"
                   onClick={closeMobile}
                 >
                   View all mechanics
@@ -270,7 +270,7 @@ export function Nav() {
 
               <button
                 type="button"
-                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:brightness-110 cursor-pointer"
+                className="mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-semibold text-white shadow-sm transition-all hover:brightness-110 cursor-pointer"
                 style={{ background: CORAL }}
                 onClick={() => {
                   setDemoOpen(true);
@@ -285,9 +285,9 @@ export function Nav() {
       </header>
 
       <Dialog open={demoOpen} onOpenChange={setDemoOpen}>
-        <DialogContent className="max-w-3xl sm:max-w-4xl text-base">
+        <DialogContent className="max-w-3xl sm:max-w-4xl max-h-[90vh] overflow-y-auto text-base p-5 sm:p-8">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-semibold leading-tight text-slate-900">
+            <DialogTitle className="font-display text-2xl font-semibold leading-tight text-slate-900">
               Request a demo
             </DialogTitle>
             <DialogDescription className="text-base text-slate-700">
