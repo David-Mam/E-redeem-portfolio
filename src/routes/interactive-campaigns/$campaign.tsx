@@ -71,12 +71,12 @@ function InteractiveCampaignPage() {
             <Eyebrow>Campaign Mechanic</Eyebrow>
             <div className="mt-4 flex items-center gap-4">
               <span
-                className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl shadow-sm"
+                className="grid h-14 w-14 shrink-0 place-items-center rounded-xl shadow-xs"
                 style={{ background: LIME }}
               >
                 <campaign.icon className="h-7 w-7 text-slate-900" />
               </span>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+              <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
                 {campaign.label}
               </h1>
             </div>
@@ -90,7 +90,7 @@ function InteractiveCampaignPage() {
                 id="see-in-action-btn"
                 whileTap={whileTapButton}
                 onClick={() => setDemoOpen(true)}
-                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-bold text-slate-900 shadow-md transition-colors hover:bg-slate-100 uppercase tracking-wider"
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold text-slate-900 shadow-sm transition-colors hover:bg-slate-100 uppercase tracking-wider"
                 style={{ background: LIME }}
               >
                 <Play className="h-4 w-4 fill-current" />
@@ -100,7 +100,7 @@ function InteractiveCampaignPage() {
               <motion.div whileTap={whileTapButton}>
                 <Link
                   to="/contacts"
-                  className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-bold text-white shadow-md transition-colors hover:brightness-110"
+                  className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:brightness-110"
                   style={{ background: CORAL }}
                 >
                   Launch this campaign
@@ -112,17 +112,18 @@ function InteractiveCampaignPage() {
 
           {/* Right Column Feature Card */}
           <ScrollReveal direction="up" distance={20} className="lg:col-span-5">
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8 shadow-sm">
+            <div className="relative overflow-hidden rounded-2xl border-2 border-slate-200 bg-linear-to-b from-white to-slate-50 p-6 sm:p-8 shadow-editorial transition-all duration-300 hover:border-slate-300">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-[#FF5E3A] via-[#A8E10C] to-[#14171A]" />
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Interactive Demo Preview
                 </span>
-                <span className="rounded-full bg-slate-200 px-2.5 py-0.5 text-[11px] font-bold text-slate-700">
+                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700">
                   Ready to test
                 </span>
               </div>
 
-              <h2 className="mt-4 text-xl font-bold text-slate-900">
+              <h2 className="mt-4 font-display text-xl font-bold text-slate-900">
                 Experience the {campaign.label} Mechanic
               </h2>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed">
@@ -135,7 +136,7 @@ function InteractiveCampaignPage() {
                   type="button"
                   whileTap={whileTapButton}
                   onClick={() => setDemoOpen(true)}
-                  className="w-full inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white py-3 text-sm font-bold text-slate-900 shadow-sm transition-colors hover:bg-slate-50"
+                  className="w-full inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-slate-300 bg-white py-3.5 text-sm font-bold text-slate-900 shadow-xs transition-all hover:bg-slate-50 hover:border-slate-400"
                 >
                   <Sparkles className="h-4 w-4" style={{ color: CORAL }} />
                   Launch Interactive Simulator
@@ -151,9 +152,9 @@ function InteractiveCampaignPage() {
           <ScrollReveal
             direction="up"
             distance={16}
-            className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm"
+            className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-editorial transition-all duration-300 hover:border-slate-300"
           >
-            <h2 className="text-lg font-bold tracking-tight text-slate-900">
+            <h2 className="font-display text-lg font-bold tracking-tight text-slate-900">
               Key Mechanics &amp; Capabilities
             </h2>
             <ul className="mt-6 space-y-4">
@@ -175,9 +176,9 @@ function InteractiveCampaignPage() {
           <ScrollReveal
             direction="up"
             distance={16}
-            className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm"
+            className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs"
           >
-            <h2 className="text-lg font-bold tracking-tight text-slate-900">
+            <h2 className="font-display text-lg font-bold tracking-tight text-slate-900">
               Omnichannel Deployment
             </h2>
             <p className="mt-2 text-sm text-slate-600 leading-relaxed">
@@ -209,7 +210,7 @@ function InteractiveCampaignPage() {
               <Trophy className="h-4 w-4" style={{ color: LIME }} />
               <span>Fraud-Proof Architecture</span>
             </div>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
               Winning Code Iteration Engine
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-300">
@@ -221,7 +222,7 @@ function InteractiveCampaignPage() {
           <motion.div whileTap={whileTapButton}>
             <Link
               to="/contacts"
-              className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-bold text-white shadow-lg transition-all hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold text-white shadow-lg transition-all hover:brightness-110"
               style={{ background: CORAL }}
             >
               Talk to our team
@@ -236,7 +237,7 @@ function InteractiveCampaignPage() {
             <div className="flex items-center justify-between">
               <div>
                 <Eyebrow>More Mechanics</Eyebrow>
-                <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-slate-900">
                   Explore other interactive campaign mechanics
                 </h2>
               </div>

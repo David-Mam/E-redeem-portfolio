@@ -45,18 +45,18 @@ export function DemoRequestForm({
   const prefix = idPrefix ? `${idPrefix}-` : "";
 
   return submitted ? (
-    <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-      <p className="text-xl font-semibold text-slate-900">Thank you — your request is in.</p>
+    <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 text-center shadow-xs">
+      <p className="font-display text-xl font-semibold text-slate-900">Thank you — your request is in.</p>
       <p className="mt-3 text-base text-slate-600">We’ll be in touch soon to schedule your demo.</p>
     </div>
   ) : (
     <form
-      className="mt-10 grid gap-8 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_30px_60px_-32px_rgba(15,23,42,0.18)]"
+      className="mt-8 sm:mt-10 grid gap-6 sm:gap-8 rounded-xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm"
       onSubmit={onSubmit}
     >
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-3">
-          <Label htmlFor={`${prefix}demo-name`} className="text-base font-semibold text-slate-900">
+      <div className="grid gap-5 sm:gap-6 sm:grid-cols-2">
+        <div className="space-y-2.5">
+          <Label htmlFor={`${prefix}demo-name`} className="text-sm sm:text-base font-semibold text-slate-900">
             Name
           </Label>
           <Input
@@ -65,12 +65,12 @@ export function DemoRequestForm({
             value={formValues.name}
             onChange={onChange}
             placeholder="Your name"
-            className="rounded-2xl border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-14 px-4 py-3 shadow-sm transition focus:border-coral focus:ring-4 focus:ring-coral/10"
+            className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-12 px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
             required
           />
         </div>
-        <div className="space-y-3">
-          <Label htmlFor={`${prefix}demo-email`} className="text-base font-semibold text-slate-900">
+        <div className="space-y-2.5">
+          <Label htmlFor={`${prefix}demo-email`} className="text-sm sm:text-base font-semibold text-slate-900">
             Email
           </Label>
           <Input
@@ -80,14 +80,14 @@ export function DemoRequestForm({
             value={formValues.email}
             onChange={onChange}
             placeholder="name@example.com"
-            className="rounded-2xl border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-14 px-4 py-3 shadow-sm transition focus:border-coral focus:ring-4 focus:ring-coral/10"
+            className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-12 px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
             required
           />
         </div>
       </div>
 
-      <div className="space-y-3 sm:col-span-2">
-        <Label htmlFor={`${prefix}demo-company`} className="text-base font-semibold text-slate-900">
+      <div className="space-y-2.5 sm:col-span-2">
+        <Label htmlFor={`${prefix}demo-company`} className="text-sm sm:text-base font-semibold text-slate-900">
           Company
         </Label>
         <Input
@@ -96,12 +96,12 @@ export function DemoRequestForm({
           value={formValues.company}
           onChange={onChange}
           placeholder="Company name"
-          className="rounded-2xl border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-14 px-4 py-3 shadow-sm transition focus:border-coral focus:ring-4 focus:ring-coral/10"
+          className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-12 px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
         />
       </div>
 
-      <div className="space-y-3">
-        <Label htmlFor={`${prefix}demo-message`} className="text-base font-semibold text-slate-900">
+      <div className="space-y-2.5">
+        <Label htmlFor={`${prefix}demo-message`} className="text-sm sm:text-base font-semibold text-slate-900">
           What are you looking for?
         </Label>
         <Textarea
@@ -110,17 +110,17 @@ export function DemoRequestForm({
           value={formValues.message}
           onChange={onChange}
           placeholder="Tell us about your goals or challenges"
-          rows={6}
-          className="rounded-2xl border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base min-h-[140px] px-4 py-3 shadow-sm transition focus:border-coral focus:ring-4 focus:ring-coral/10"
+          rows={5}
+          className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base min-h-[120px] px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
         />
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pt-2">
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center w-full sm:w-auto">
           {showCancel && onCancel ? (
             <button
               type="button"
-              className="inline-flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+              className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-md border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 cursor-pointer"
               onClick={onCancel}
             >
               {cancelLabel}
@@ -128,8 +128,8 @@ export function DemoRequestForm({
           ) : null}
           <button
             type="submit"
-            className="inline-flex h-12 min-w-[10rem] items-center justify-center rounded-2xl bg-coral px-6 text-sm font-semibold text-white shadow-lg shadow-coral/20 transition hover:bg-coral/90"
-            style={{ background: "#FC766AFF" }}
+            className="inline-flex h-12 w-full sm:min-w-[10rem] items-center justify-center rounded-md px-6 text-sm font-semibold text-white shadow-sm transition-all hover:brightness-110 cursor-pointer"
+            style={{ background: "#FF5E3A" }}
           >
             {ctaLabel}
           </button>

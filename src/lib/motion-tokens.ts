@@ -55,6 +55,41 @@ export const whileHoverCard = {
   },
 };
 
+export const whileHoverBento = {
+  y: -3,
+  scale: 1.008,
+  transition: {
+    duration: MOTION_DURATIONS.fast,
+    ease: MOTION_EASINGS.entrance,
+  },
+};
+
+export const bentoContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+export const bentoItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: MOTION_DURATIONS.standard,
+      ease: MOTION_EASINGS.entrance,
+    },
+  },
+};
+
 // Section Scroll Reveal Variants (whileInView)
 export const sectionRevealVariants: Variants = {
   hidden: {

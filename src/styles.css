@@ -211,71 +211,53 @@
   --raffle-blank-fill: #F7F8F5;
 }
 
-@keyframes toast-in {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 8px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-
-@layer base {
-  * {
-    border-color: var(--color-border);
-  }
-
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-  }
-}
-
 /* ------------------------------------------------------------------------- *
- * e-redeem campaign modals — token aliases.
- *
- * Files under src/shared, src/systems/redeem and src/campaigns are copied
- * verbatim from the e-redeem-frontend repo and reference an `r-*` token
- * namespace. Mapping those names onto this site's palette here — rather than
- * rewriting ~60 class strings — keeps a future re-sync a straight file copy.
- * Those three directories are listed in .prettierignore and eslint.config.js
- * for the same reason. Do not hand-edit them.
+ * Foundations & Visual Ambience Tokens
  * ------------------------------------------------------------------------- */
-@theme inline {
-  --color-r-signal: var(--primary); /* coral — buttons, rings, selected state */
-  --color-r-signal-dark: oklch(0.6 0.2 35); /* primary button hover/active */
-  --color-r-signal-tint: oklch(0.96 0.03 35); /* pale coral — hover/selected fills */
-  --color-r-reward: var(--accent); /* lime — unused by the modals today */
-  --color-r-win: oklch(0.549 0.051 151); /* sage #5c7a62 — "you win!" */
-  --color-r-ink: var(--foreground);
-  --color-r-ink-muted: var(--muted-foreground);
-  --color-r-border: var(--border);
-  --color-r-cloud: var(--background);
 
-  --font-r-display: var(--font-sans);
-  --font-r-body: var(--font-sans);
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(20, 23, 26, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* The source's display face is Anton, which only ships weight 400, so its
- * headings carry no font-bold class. Restore the weight for a normal sans. */
-.font-r-display {
-  font-weight: 700;
+.bg-dot-grid-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* Wheel chrome — raffleWheel.css and RaffleModal.tsx read these, each with a
- * fallback to the source project's original value. */
-.raffle-wheel-wrap {
-  --raffle-ring-color: var(--foreground);
-  --raffle-label-color: var(--foreground);
-  --raffle-pointer-color: var(--primary);
-  --raffle-prize-fill: oklch(0.94 0.045 35); /* pale coral */
-  --raffle-blank-fill: var(--secondary); /* neutral */
+.shadow-editorial {
+  box-shadow: 0 1px 2px rgba(20, 23, 26, 0.04), 0 8px 24px -4px rgba(20, 23, 26, 0.06), 0 20px 48px -12px rgba(20, 23, 26, 0.08);
 }
 
-/* Used by WinToast. */
+.shadow-glow-coral {
+  box-shadow: 0 0 32px -4px rgba(255, 94, 58, 0.24);
+}
+
+.shadow-glow-lime {
+  box-shadow: 0 0 32px -4px rgba(168, 225, 12, 0.28);
+}
+
+.bento-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E7E9;
+  border-radius: 16px;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  border-color: #CBD0D6;
+  box-shadow: 0 12px 36px -8px rgba(20, 23, 26, 0.08);
+  transform: translateY(-2px);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @keyframes toast-in {
   from {
     opacity: 0;
@@ -286,3 +268,4 @@
     transform: translate(-50%, 0);
   }
 }
+

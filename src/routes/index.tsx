@@ -38,8 +38,8 @@ function Index() {
       <FeatureGrid />
       <CampaignsTeaser />
       <UseCasesTeaser />
-      <CaseStudiesTeaser />
       <ContactTeaser />
+      <CaseStudiesTeaser />
       <BottomCTA />
     </>
   );
@@ -51,7 +51,7 @@ function Hero() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="relative bg-white overflow-hidden">
+    <section className="relative bg-[#F7F8F5] overflow-hidden">
       {/* Background Media Layer */}
       <HeroBackground />
 
@@ -66,16 +66,16 @@ function Hero() {
           {/* Badge */}
           <motion.div
             variants={prefersReducedMotion ? reducedMotionVariants : heroChildVariants}
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-white shadow-sm"
           >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: LIME }} />
+            <span className="h-2 w-2 rounded-full animate-pulse" style={{ background: LIME }} />
             Gen-AI Consumer Engagement Platform
           </motion.div>
 
           {/* Headline */}
           <motion.h1
             variants={prefersReducedMotion ? reducedMotionVariants : heroChildVariants}
-            className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl lg:text-6xl"
+            className="mt-6 font-display text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-sm"
           >
             Unlocking Consumer Loyalty with <span style={{ color: CORAL }}>E-Redeem</span>
           </motion.h1>
@@ -83,7 +83,7 @@ function Hero() {
           {/* Subhead */}
           <motion.p
             variants={prefersReducedMotion ? reducedMotionVariants : heroChildVariants}
-            className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600"
+            className="mt-5 sm:mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-slate-200"
           >
             Engage, Reward &amp; Grow. Build digitalized, efficient, and authentic marketing
             campaigns.
@@ -92,12 +92,12 @@ function Hero() {
           {/* CTAs */}
           <motion.div
             variants={prefersReducedMotion ? reducedMotionVariants : heroChildVariants}
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto"
           >
-            <motion.div whileTap={whileTapButton}>
+            <motion.div whileTap={whileTapButton} className="w-full sm:w-auto">
               <Link
                 to="/contacts"
-                className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:brightness-110"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-md px-6 py-3.5 sm:py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:brightness-110"
                 style={{ background: CORAL }}
               >
                 Launch a Campaign
@@ -105,14 +105,14 @@ function Hero() {
               </Link>
             </motion.div>
 
-            <motion.div whileTap={whileTapButton}>
+            <motion.div whileTap={whileTapButton} className="w-full sm:w-auto">
               <Link
                 id="hero-simulate-mechanic-btn"
                 to="/interactive-campaigns"
-                className="inline-flex items-center gap-2 rounded-md border-2 bg-white px-6 py-3 text-sm font-semibold transition-colors hover:bg-slate-50 shadow-xs"
-                style={{ borderColor: CORAL, color: CORAL }}
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-md border-2 bg-white/10 backdrop-blur-md px-6 py-3.5 sm:py-3 text-sm font-semibold transition-colors hover:bg-white/20 text-white shadow-sm"
+                style={{ borderColor: CORAL }}
               >
-                <Play className="h-4 w-4 fill-current" />
+                <Play className="h-4 w-4 fill-current text-white" />
                 Simulate a Mechanic
               </Link>
             </motion.div>
@@ -121,7 +121,7 @@ function Hero() {
           {/* Value Badges */}
           <motion.div
             variants={prefersReducedMotion ? reducedMotionVariants : heroChildVariants}
-            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-wider text-slate-500"
+            className="mt-8 sm:mt-10 flex flex-wrap items-center gap-x-6 sm:gap-x-8 gap-y-2.5 text-xs font-semibold uppercase tracking-wider text-slate-300"
           >
             <span className="flex items-center gap-2">
               <ShieldCheck className="h-4 w-4" style={{ color: LIME }} /> Fraud-proof
@@ -141,15 +141,16 @@ function Hero() {
             fromScale={0.95}
             duration={0.45}
             delay={0.1}
-            className="w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-4 shadow-xl sm:p-6 transition-shadow hover:shadow-2xl"
+            className="w-full max-w-xl rounded-2xl border-2 border-slate-200/90 bg-white p-5 shadow-editorial sm:p-7 transition-all duration-300 hover:shadow-2xl relative overflow-hidden"
           >
-            <div className="mb-4 flex items-center justify-between">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-[#FF5E3A] via-[#A8E10C] to-[#14171A]" />
+            <div className="mb-5 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
                 <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
                 <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
               </div>
-              <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+              <div className="flex items-center gap-2 rounded-full bg-slate-50 border border-slate-200 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-slate-600">
                 <span
                   className="inline-block h-2 w-2 rounded-full animate-pulse"
                   style={{ background: LIME }}
@@ -165,11 +166,11 @@ function Hero() {
                 { k: "Winners", val: 495, raw: "495" },
                 { k: "Conv.", suffix: "%", val: 3.59, raw: "3.59%" },
               ].map((s) => (
-                <div key={s.k} className="rounded-lg border border-slate-200 p-3 bg-slate-50">
-                  <div className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
+                <div key={s.k} className="rounded-xl border border-slate-200 p-3.5 bg-slate-50/80 transition-colors hover:bg-slate-100/80">
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     {s.k}
                   </div>
-                  <div className="mt-1.5 text-xl font-bold text-slate-900">
+                  <div className="mt-1 font-display text-xl sm:text-2xl font-bold text-slate-900">
                     {typeof s.val === "number" && Number.isInteger(s.val) ? (
                       <ScrollCounter target={s.val} duration={0.7} />
                     ) : (
@@ -180,10 +181,10 @@ function Hero() {
               ))}
             </div>
 
-            <div className="mt-4 rounded-lg border border-slate-200 p-4">
+            <div className="mt-4 rounded-xl border border-slate-200 p-4 bg-white shadow-2xs">
               <div className="flex items-center justify-between">
-                <div className="text-sm font-semibold text-slate-900">Revenue vs Target</div>
-                <div className="flex gap-3 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
+                <div className="text-sm font-bold text-slate-900 font-display">Revenue vs Target</div>
+                <div className="flex gap-3 text-[10px] font-bold uppercase tracking-widest text-slate-500">
                   <span className="flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full" style={{ background: CORAL }} />
                     Revenue
@@ -203,13 +204,13 @@ function Hero() {
                   [85, 72],
                   [92, 80],
                 ].map(([a, b], i) => (
-                  <div key={i} className="flex flex-1 items-end gap-1 group">
+                  <div key={i} className="flex flex-1 items-end gap-1 group cursor-pointer">
                     <div
-                      className="flex-1 rounded-t transition-colors duration-200 group-hover:brightness-110"
+                      className="flex-1 rounded-t transition-all duration-200 group-hover:brightness-110 group-hover:scale-y-105 origin-bottom"
                       style={{ height: `${a}%`, background: CORAL }}
                     />
                     <div
-                      className="flex-1 rounded-t bg-slate-900 transition-colors duration-200 group-hover:bg-slate-700"
+                      className="flex-1 rounded-t bg-slate-900 transition-all duration-200 group-hover:bg-slate-700 group-hover:scale-y-105 origin-bottom"
                       style={{ height: `${b}%` }}
                     />
                   </div>
@@ -217,25 +218,25 @@ function Hero() {
               </div>
             </div>
 
-            <div className="mt-4 flex items-center justify-between rounded-lg bg-slate-50 p-3">
+            <div className="mt-4 flex items-center justify-between rounded-xl bg-slate-50 border border-slate-200/80 p-3.5 shadow-2xs">
               <div className="flex items-center gap-2.5">
                 <span
-                  className="grid h-8 w-8 place-items-center rounded-full"
+                  className="grid h-9 w-9 place-items-center rounded-xl shadow-xs"
                   style={{ background: LIME }}
                 >
                   <Trophy className="h-4 w-4 text-slate-900" />
                 </span>
                 <div>
-                  <div className="text-xs font-semibold text-slate-900">
+                  <div className="text-xs font-bold text-slate-900">
                     Winner Verified · WCI Entry #900
                   </div>
-                  <div className="text-[10px] uppercase tracking-widest text-slate-500">
+                  <div className="text-[10px] uppercase tracking-widest text-slate-500 font-medium">
                     ₦2,000 Airtime dispatched
                   </div>
                 </div>
               </div>
               <span
-                className="rounded-full px-2 py-0.5 text-[10px] font-bold text-slate-900"
+                className="rounded-full px-2.5 py-0.5 text-[10px] font-black text-slate-900 shadow-2xs"
                 style={{ background: LIME }}
               >
                 LIVE
@@ -276,17 +277,24 @@ function SocialProof() {
   );
 }
 
-/* ---------------- FEATURE GRID (Scroll Reveal) ---------------- */
+/* ---------------- FEATURE GRID (Asymmetric Bento Composition) ---------------- */
 
 function FeatureGrid() {
+  const F0Icon = features[0].icon;
+  const F1Icon = features[1].icon;
+  const F2Icon = features[2].icon;
+  const F3Icon = features[3].icon;
+  const F4Icon = features[4].icon;
+  const F5Icon = features[5].icon;
+
   return (
-    <ScrollSection className="bg-white">
+    <ScrollSection className="bg-white relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
         <ScrollReveal direction="up" distance={14} className="mx-auto max-w-2xl text-center">
           <div className="flex justify-center">
             <Eyebrow>Why E-Redeem</Eyebrow>
           </div>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
             A loyalty platform built for category leaders.
           </h2>
           <p className="mt-4 text-lg text-slate-600">
@@ -296,27 +304,152 @@ function FeatureGrid() {
         </ScrollReveal>
 
         <ScrollStaggerContainer
-          staggerDelay={0.06}
-          className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+          staggerDelay={0.08}
+          className="mt-14 grid gap-5 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
         >
-          {features.map((f) => (
-            <ScrollStaggerItem key={f.title} distance={14}>
-              <div className="group relative overflow-hidden h-full rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-md">
-                <div className="relative z-10">
+          {/* Bento Tile 1 (Featured Hero Tile: WCI Engine) */}
+          <ScrollStaggerItem distance={14} className="md:col-span-2 lg:col-span-2">
+            <div className="group relative overflow-hidden h-full rounded-2xl border-2 border-slate-200 bg-linear-to-br from-white via-slate-50/50 to-orange-50/20 p-7 sm:p-9 transition-all duration-300 hover:border-[#FF5E3A]/40 hover:shadow-editorial">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                <div className="flex items-center gap-3">
                   <span
-                    className="grid h-12 w-12 place-items-center rounded-xl"
-                    style={{ background: `${LIME}33` }}
+                    className="grid h-12 w-12 place-items-center rounded-xl shadow-xs"
+                    style={{ background: LIME }}
                   >
-                    <f.icon className="h-6 w-6 text-slate-900" />
+                    <F0Icon className="h-6 w-6 text-slate-900" />
                   </span>
-                  <h3 className="mt-6 text-lg font-bold tracking-tight text-slate-900">
-                    {f.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{f.desc}</p>
+                  <div>
+                    <span className="rounded-full bg-slate-100 border border-slate-200 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+                      Core Differentiator
+                    </span>
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[11px] font-bold text-emerald-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  100% Cryptographic Allocation
                 </div>
               </div>
-            </ScrollStaggerItem>
-          ))}
+              <div className="mt-6">
+                <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-slate-900 group-hover:text-coral transition-colors">
+                  {features[0].title}
+                </h3>
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-slate-600 max-w-2xl">
+                  {features[0].desc}
+                </p>
+              </div>
+            </div>
+          </ScrollStaggerItem>
+
+          {/* Bento Tile 2: Multi-Channel */}
+          <ScrollStaggerItem distance={14} className="md:col-span-1 lg:col-span-1">
+            <div className="group relative overflow-hidden h-full rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:border-slate-300 hover:shadow-editorial">
+              <div className="flex items-center justify-between">
+                <span
+                  className="grid h-12 w-12 place-items-center rounded-xl shadow-xs"
+                  style={{ background: `${LIME}33` }}
+                >
+                  <F1Icon className="h-6 w-6 text-slate-900" />
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Universal
+                </span>
+              </div>
+              <h3 className="mt-6 font-display text-lg font-bold tracking-tight text-slate-900 group-hover:text-coral transition-colors">
+                {features[1].title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">{features[1].desc}</p>
+            </div>
+          </ScrollStaggerItem>
+
+          {/* Bento Tile 3: Real-Time Analytics */}
+          <ScrollStaggerItem distance={14} className="md:col-span-1 lg:col-span-1">
+            <div className="group relative overflow-hidden h-full rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:border-slate-300 hover:shadow-editorial">
+              <div className="flex items-center justify-between">
+                <span
+                  className="grid h-12 w-12 place-items-center rounded-xl shadow-xs"
+                  style={{ background: `${LIME}33` }}
+                >
+                  <F2Icon className="h-6 w-6 text-slate-900" />
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Live KPIs
+                </span>
+              </div>
+              <h3 className="mt-6 font-display text-lg font-bold tracking-tight text-slate-900 group-hover:text-coral transition-colors">
+                {features[2].title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">{features[2].desc}</p>
+            </div>
+          </ScrollStaggerItem>
+
+          {/* Bento Tile 4: Automated Reward Fulfilment */}
+          <ScrollStaggerItem distance={14} className="md:col-span-1 lg:col-span-1">
+            <div className="group relative overflow-hidden h-full rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:border-slate-300 hover:shadow-editorial">
+              <div className="flex items-center justify-between">
+                <span
+                  className="grid h-12 w-12 place-items-center rounded-xl shadow-xs"
+                  style={{ background: `${CORAL}1A` }}
+                >
+                  <F3Icon className="h-6 w-6" style={{ color: CORAL }} />
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Instant
+                </span>
+              </div>
+              <h3 className="mt-6 font-display text-lg font-bold tracking-tight text-slate-900 group-hover:text-coral transition-colors">
+                {features[3].title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">{features[3].desc}</p>
+            </div>
+          </ScrollStaggerItem>
+
+          {/* Bento Tile 5: Enterprise Compliance & SLA */}
+          <ScrollStaggerItem distance={14} className="md:col-span-1 lg:col-span-1">
+            <div className="group relative overflow-hidden h-full rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:border-slate-300 hover:shadow-editorial">
+              <div className="flex items-center justify-between">
+                <span
+                  className="grid h-12 w-12 place-items-center rounded-xl shadow-xs"
+                  style={{ background: `${LIME}33` }}
+                >
+                  <F4Icon className="h-6 w-6 text-slate-900" />
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Verified
+                </span>
+              </div>
+              <h3 className="mt-6 font-display text-lg font-bold tracking-tight text-slate-900 group-hover:text-coral transition-colors">
+                {features[4].title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">{features[4].desc}</p>
+            </div>
+          </ScrollStaggerItem>
+
+          {/* Bento Tile 6: In-Store & Interactive Screens */}
+          <ScrollStaggerItem distance={14} className="md:col-span-2 lg:col-span-3">
+            <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 text-white p-7 sm:p-8 transition-all duration-300 hover:shadow-editorial">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="grid h-12 w-12 place-items-center rounded-xl"
+                    style={{ background: LIME }}
+                  >
+                    <F5Icon className="h-6 w-6 text-slate-900" />
+                  </span>
+                  <div>
+                    <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight text-white">
+                      {features[5].title}
+                    </h3>
+                    <p className="mt-1 text-sm text-slate-300 max-w-2xl">{features[5].desc}</p>
+                  </div>
+                </div>
+                <div className="shrink-0 flex items-center gap-2">
+                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+                    Touch &bull; QR &bull; Motion
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ScrollStaggerItem>
         </ScrollStaggerContainer>
       </div>
     </ScrollSection>
@@ -346,7 +479,7 @@ function TeaserHeading({
     >
       <div className="max-w-2xl">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+        <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
           {title}
         </h2>
         <p className="mt-4 text-lg text-slate-600">{body}</p>
@@ -419,11 +552,47 @@ function UseCasesTeaser() {
   );
 }
 
+/* ---------------- TEASER: contact ---------------- */
+
+function ContactTeaser() {
+  return (
+    <ScrollSection className="border-t border-slate-200 bg-slate-50">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <ScrollReveal
+          direction="up"
+          distance={14}
+          className="flex flex-col items-start gap-6 rounded-2xl border border-slate-200 bg-white p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 shadow-editorial transition-shadow hover:shadow-2xl"
+        >
+          <div className="max-w-2xl">
+            <Eyebrow>Contacts</Eyebrow>
+            <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              Ready to talk through your next campaign?
+            </h2>
+            <p className="mt-3 text-slate-600">
+              Reach the E-Redeem team for consumer engagement, reward and loyalty programmes.
+            </p>
+          </div>
+          <motion.div whileTap={whileTapButton} className="shrink-0 w-full sm:w-auto">
+            <Link
+              to="/contacts"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-md px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:brightness-110"
+              style={{ background: CORAL }}
+            >
+              Get in touch
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+        </ScrollReveal>
+      </div>
+    </ScrollSection>
+  );
+}
+
 /* ---------------- TEASER: case studies ---------------- */
 
 function CaseStudiesTeaser() {
   return (
-    <ScrollSection className="border-t border-slate-200 bg-slate-50">
+    <ScrollSection className="border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <TeaserHeading
           eyebrow="Case Studies"
@@ -444,42 +613,6 @@ function CaseStudiesTeaser() {
   );
 }
 
-/* ---------------- TEASER: contact ---------------- */
-
-function ContactTeaser() {
-  return (
-    <ScrollSection className="bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <ScrollReveal
-          direction="up"
-          distance={14}
-          className="flex flex-col items-start gap-6 rounded-2xl border border-slate-200 bg-slate-50 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 transition-shadow hover:shadow-md"
-        >
-          <div className="max-w-2xl">
-            <Eyebrow>Contacts</Eyebrow>
-            <h2 className="mt-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-              Ready to talk through your next campaign?
-            </h2>
-            <p className="mt-3 text-slate-600">
-              Reach the E-Redeem team for consumer engagement, reward and loyalty programmes.
-            </p>
-          </div>
-          <motion.div whileTap={whileTapButton} className="shrink-0">
-            <Link
-              to="/contacts"
-              className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:brightness-110"
-              style={{ background: CORAL }}
-            >
-              Get in touch
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </motion.div>
-        </ScrollReveal>
-      </div>
-    </ScrollSection>
-  );
-}
-
 /* ---------------- BOTTOM CTA ---------------- */
 
 function BottomCTA() {
@@ -487,18 +620,18 @@ function BottomCTA() {
     <ScrollSection className="bg-slate-900 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-24">
         <ScrollReveal direction="up" distance={16} duration={0.3}>
-          <h2 className="mx-auto max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mx-auto max-w-3xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
             Ready to launch a fraud-proof, Gen-AI powered campaign?
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-300">
             Talk to the E-Redeem team about your next consumer engagement, reward or loyalty
             programme.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <motion.div whileTap={whileTapButton}>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3">
+            <motion.div whileTap={whileTapButton} className="w-full sm:w-auto">
               <Link
                 to="/contacts"
-                className="inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-bold text-slate-900 shadow-lg transition-colors hover:brightness-110"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-md px-7 py-3.5 text-sm font-bold text-slate-900 shadow-lg transition-colors hover:brightness-110"
                 style={{ background: LIME }}
               >
                 Launch a Campaign
@@ -508,7 +641,7 @@ function BottomCTA() {
             <motion.a
               whileTap={whileTapButton}
               href="mailto:abamgbala@excitepanacea.com"
-              className="inline-flex items-center gap-2 rounded-md border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-md border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               Email the team
             </motion.a>

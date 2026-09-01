@@ -1,7 +1,8 @@
-import { createFileRoute, Link, notFound, Outlet, useLocation } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, Link, notFound, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowRight, ShieldCheck, CheckCircle2, Sparkles, RotateCcw } from "lucide-react";
+import { Zap, X, AlertCircle, RotateCcw } from "lucide-react";
 
 import {
   fetchClientCampaignBySlug,
@@ -16,8 +17,6 @@ import {
 import {
   stepSlideVariants,
   reducedMotionVariants,
-  whileTapButton,
-  whileHoverCard,
 } from "../../lib/motion-tokens";
 
 export const Route = createFileRoute("/campaigns/$slug")({
@@ -44,11 +43,11 @@ function ClientCampaignLayout() {
 
   if (isLoading || !campaign) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center bg-slate-900 text-white">
+      <div className="flex min-h-screen items-center justify-center bg-slate-950 text-white">
         <div className="text-center">
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-emerald-400 border-t-transparent" />
+          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-amber-400 border-t-transparent" />
           <p className="mt-4 text-sm font-semibold text-slate-300">
-            Loading client campaign environment...
+            Loading campaign...
           </p>
         </div>
       </div>
@@ -64,422 +63,266 @@ function ClientCampaignLayout() {
 
 function CampaignContent({
   campaign,
-  allCampaigns,
 }: {
   campaign: ClientCampaign;
   allCampaigns: ClientCampaign[];
 }) {
-  const theme = campaign.theme;
   const location = useLocation();
+  const navigate = useNavigate();
   const prefersReducedMotion = useReducedMotion();
-  const { currentStepId, restartFlow } = useCampaignFlow();
-  const otherCampaigns = allCampaigns.filter((c) => c.slug !== campaign.slug).slice(0, 3);
+  const { currentStepId, state, submitCode, failCode, restartFlow } = useCampaignFlow();
+
+  const [heroInputCode, setHeroInputCode] = useState(state.enteredCode || "");
+  const [heroInputError, setHeroInputError] = useState<string | null>(null);
+  const [isSubmittingHeroCode, setIsSubmittingHeroCode] = useState(false);
+
+  const fallbackBanner =
+    "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1600&q=80";
+
+  // Check if user is currently inside an active step flow (activity, kyc, requirement, result)
+  const isInsideActiveStep =
+    location.pathname.endsWith("/activity") ||
+    location.pathname.endsWith("/kyc") ||
+    location.pathname.endsWith("/requirement") ||
+    location.pathname.endsWith("/result");
+
+  const handleHeroCodeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanCode = heroInputCode.trim().toUpperCase();
+
+    if (!cleanCode) {
+      setHeroInputError("Please enter your promotional code.");
+      return;
+    }
+
+    setIsSubmittingHeroCode(true);
+    setHeroInputError(null);
+
+    setTimeout(() => {
+      setIsSubmittingHeroCode(false);
+      if (cleanCode === "EXPIRED" || cleanCode === "INVALID" || cleanCode === "USED") {
+        setHeroInputError(
+          `Code "${cleanCode}" is invalid or expired. Try a sample valid code.`,
+        );
+        failCode?.(`Code "${cleanCode}" is invalid`);
+        return;
+      }
+
+      if (cleanCode.length >= 4) {
+        submitCode(cleanCode);
+      } else {
+        setHeroInputError("Codes must be at least 4 alphanumeric characters.");
+      }
+    }, 350);
+  };
 
   return (
-    <div
-      className="min-h-screen font-sans text-slate-100 transition-colors selection:bg-amber-400 selection:text-slate-950 overflow-hidden py-8 sm:py-12 px-3 sm:px-6"
-      style={{
-        backgroundColor: theme.background,
-        color: theme.text,
-      }}
-    >
-      {/* Top Announcement & Back Navigation */}
-      <div className="mx-auto max-w-4xl mb-6 flex flex-wrap items-center justify-between gap-3 text-xs font-bold sm:px-2">
-        <Link
-          to="/campaigns"
-          className="inline-flex items-center gap-1.5 font-bold opacity-85 transition-opacity hover:opacity-100"
-          style={{ color: theme.textMuted }}
-        >
-          ← Back to All Client Campaigns
-        </Link>
+    <div className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden bg-slate-950 font-sans text-white select-none">
+      {/* 1. Full-Screen Photographic Banner Background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={campaign.bannerUrl || fallbackBanner}
+          alt={`${campaign.campaignName} Background`}
+          referrerPolicy="no-referrer"
+          className="h-full w-full object-cover object-center filter brightness-[0.85] contrast-[1.05]"
+        />
+        {/* Cinematic Dark Scrim Overlay */}
+        <div className="absolute inset-0 bg-black/60 sm:bg-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/70" />
+      </div>
 
+      {/* 2. Top Header Bar: Company Logo (Top Left) & Close Exit Button */}
+      <header className="relative z-20 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
+        {/* Top-Left Company Logo(s) & Brand Badge */}
         <div className="flex items-center gap-3">
           <span
-            className="flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-wider"
-            style={{
-              backgroundColor: theme.badgeBg,
-              color: theme.badgeText,
-            }}
+            className="flex items-center gap-1.5 rounded-[6px] px-3 py-1.5 font-display text-sm font-black uppercase tracking-wider text-white shadow-lg"
+            style={{ backgroundColor: campaign.theme.primary || "#E11D48" }}
           >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
-            {campaign.status}
+            {campaign.logoText}
           </span>
-          <button
-            onClick={restartFlow}
-            className="inline-flex cursor-pointer items-center gap-1 text-[11px] underline opacity-85 transition-opacity hover:opacity-100"
-            style={{ color: theme.secondary }}
-          >
-            <RotateCcw className="h-3 w-3" />
-            Restart Flow
-          </button>
+          <div className="hidden sm:flex flex-col">
+            <span className="text-sm font-extrabold tracking-tight text-white drop-shadow-sm">
+              {campaign.clientName}
+            </span>
+            <span className="text-[10px] font-semibold tracking-wider text-slate-300 uppercase">
+              Official Sponsor &bull; E-Redeem
+            </span>
+          </div>
         </div>
-      </div>
 
-      {/* Main Structural Capsule Frame */}
-      <div
-        id="client-campaign-editorial-frame"
-        className="mx-auto max-w-4xl rounded-[36px] sm:rounded-[44px] border shadow-2xl overflow-hidden p-6 sm:p-9 space-y-8"
-        style={{
-          backgroundColor: theme.surface,
-          borderColor: theme.border,
-          color: theme.text,
-        }}
-      >
-        {/* 1. Header Bar inside Frame */}
-        <div
-          className="flex items-center justify-between border-b pb-4 text-xs font-bold"
-          style={{ borderColor: theme.border }}
+        {/* Top Close (×) Exit Button to return to all campaigns */}
+        <Link
+          to="/campaigns"
+          className="group grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full bg-black/40 hover:bg-black/70 border border-white/25 backdrop-blur-md text-white transition-all shadow-lg active:scale-95"
+          title="Exit Campaign"
         >
-          <div className="flex items-center gap-2">
-            <span
-              className="rounded px-2.5 py-1 text-[11px] font-black uppercase tracking-wider"
-              style={{ backgroundColor: theme.primary, color: "#FFFFFF" }}
-            >
-              {campaign.logoText}
-            </span>
-            <span className="text-xs font-bold tracking-tight">{campaign.clientName}</span>
-          </div>
+          <X className="h-5 w-5 transition-transform group-hover:scale-110" />
+        </Link>
+      </header>
 
-          <div className="flex items-center gap-2">
-            <span
-              className="rounded-full px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider border"
-              style={{
-                borderColor: theme.border,
-                backgroundColor: theme.cardBg,
-                color: theme.secondary,
-              }}
-            >
-              {campaign.heroBadge}
-            </span>
-            <span
-              className="rounded-full px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider"
-              style={{
-                backgroundColor: theme.primary,
-                color: "#FFFFFF",
-              }}
-            >
-              {campaign.mechanicLabel}
-            </span>
-          </div>
-        </div>
-
-        {/* 2. Top Arch Aperture & Hero Headline */}
-        <div className="text-center pt-2">
-          <div
-            className="relative mx-auto flex h-24 w-36 items-center justify-center overflow-hidden rounded-t-full rounded-b-2xl border p-2 shadow-inner"
-            style={{
-              borderColor: theme.border,
-              background: `linear-gradient(180deg, ${theme.gradientFrom} 0%, ${theme.gradientTo} 100%)`,
-            }}
+      {/* 3. Main Center Content: Massive Headline, Subhead, and Rounded-Full Pill Input Bar */}
+      <main className="relative z-10 mx-auto max-w-4xl px-4 text-center my-auto py-6 sm:py-10">
+        {!isInsideActiveStep ? (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="space-y-4 sm:space-y-6"
           >
-            <span className="text-lg font-black tracking-wider uppercase text-white shadow-xs">
-              {campaign.logoText}
-            </span>
-          </div>
-
-          <div
-            className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] opacity-75"
-            style={{ color: theme.secondary }}
-          >
-            {campaign.formType === "code" ? "On-Pack Code Entry" : "Open Public Access"}
-          </div>
-
-          <h1 className="mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-            {campaign.campaignName}
-          </h1>
-
-          <p
-            className="mx-auto mt-3 max-w-2xl text-sm sm:text-base font-normal leading-relaxed"
-            style={{ color: theme.textMuted }}
-          >
-            {campaign.tagline}
-          </p>
-
-          {/* Quick Metrics Bar inside Frame */}
-          <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4 text-left">
-            <div
-              className="rounded-[16px] border p-3"
-              style={{
-                backgroundColor: theme.cardBg,
-                borderColor: theme.border,
-              }}
-            >
-              <div className="text-[10px] font-bold uppercase tracking-wider opacity-70">
-                Prize Value
+            {/* Big 3-Line Bold Headline */}
+            <div className="space-y-1 sm:space-y-2">
+              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-lg uppercase leading-[1.08]">
+                WIN{" "}
+                {campaign.rewardType === "airtime"
+                  ? "Free Airtime & Data"
+                  : campaign.rewardType === "cash"
+                    ? "Instant Cash Grants"
+                    : "Exclusive Brand Prizes"}{" "}
+                At
+              </h1>
+              <div className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight drop-shadow-lg uppercase text-[#22C55E] leading-[1.08]">
+                {campaign.clientName}
               </div>
-              <div className="mt-0.5 font-display text-sm font-bold text-amber-300 sm:text-base">
-                {campaign.rewardValue}
+              <div className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight drop-shadow-lg uppercase text-[#FACC15] leading-[1.08]">
+                2026
               </div>
             </div>
 
-            <div
-              className="rounded-[16px] border p-3"
-              style={{
-                backgroundColor: theme.cardBg,
-                borderColor: theme.border,
-              }}
+            {/* Subhead / Instructions */}
+            <p className="mx-auto max-w-2xl text-sm sm:text-lg font-medium text-slate-100 drop-shadow-md leading-relaxed">
+              {campaign.formType === "code"
+                ? "Scan the QR code, Input your on-pack promo code and stand a chance to win instant rewards."
+                : campaign.tagline}
+            </p>
+
+            {/* Rounded-Full Pill Bar: Input + Redeem Button Inside */}
+            <form
+              onSubmit={handleHeroCodeSubmit}
+              className="mx-auto mt-6 sm:mt-8 max-w-xl"
             >
-              <div className="text-[10px] font-bold uppercase tracking-wider opacity-70">
-                Live Participation
-              </div>
-              <div className="mt-0.5 font-display text-sm font-bold sm:text-base">
-                {campaign.participantsCount}
-              </div>
-            </div>
-
-            <div
-              className="rounded-[16px] border p-3"
-              style={{
-                backgroundColor: theme.cardBg,
-                borderColor: theme.border,
-              }}
-            >
-              <div className="text-[10px] font-bold uppercase tracking-wider opacity-70">
-                Reward Type
-              </div>
-              <div className="mt-0.5 font-display text-sm font-bold capitalize sm:text-base">
-                {campaign.rewardType.replace("-", " ")}
-              </div>
-            </div>
-
-            <div
-              className="rounded-[16px] border p-3"
-              style={{
-                backgroundColor: theme.cardBg,
-                borderColor: theme.border,
-              }}
-            >
-              <div className="text-[10px] font-bold uppercase tracking-wider opacity-70">
-                Fulfillment
-              </div>
-              <div className="mt-0.5 font-display text-sm font-bold text-emerald-300 sm:text-base">
-                Instant Automated
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. Multi-Step Stepper & Dynamic Step Content inside Rounded Container */}
-        <div
-          className="rounded-[28px] border p-6 sm:p-7 shadow-lg space-y-6"
-          style={{
-            backgroundColor: theme.cardBg,
-            borderColor: theme.border,
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-base sm:text-lg font-bold tracking-tight">
-              Campaign Participation Flow
-            </h2>
-            <span
-              className="rounded-full border px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-              style={{
-                borderColor: theme.border,
-                backgroundColor: theme.surface,
-                color: theme.secondary,
-              }}
-            >
-              Step-by-Step Route Architecture
-            </span>
-          </div>
-
-          <CampaignFlowStepper campaign={campaign} currentStep={currentStepId} />
-
-          {/* Dynamic Step Content from Nested Route Outlet with AnimatePresence */}
-          <main className="w-full pt-2 overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={location.pathname}
-                variants={prefersReducedMotion ? reducedMotionVariants : stepSlideVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-              >
-                <Outlet />
-              </motion.div>
-            </AnimatePresence>
-          </main>
-        </div>
-
-        {/* 4. Highlights & Compliance Bento Blocks */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <div
-            className="space-y-4 rounded-[24px] border p-6 shadow-sm"
-            style={{
-              backgroundColor: theme.cardBg,
-              borderColor: theme.border,
-            }}
-            id="campaign-highlights-box"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="rounded-xl p-2.5 text-white shadow-xs"
-                style={{ backgroundColor: theme.primary }}
-              >
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <h3 className="font-display text-base font-bold">Campaign Highlights &amp; Engine</h3>
-            </div>
-            <ul className="space-y-2.5 text-xs sm:text-sm" style={{ color: theme.textMuted }}>
-              {campaign.points.map((point: string, idx: number) => (
-                <li key={idx} className="flex items-start gap-2.5">
-                  <CheckCircle2
-                    className="mt-0.5 h-4 w-4 shrink-0"
-                    style={{ color: theme.secondary }}
-                  />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div
-            className="space-y-4 rounded-[24px] border p-6 shadow-sm"
-            style={{
-              backgroundColor: theme.cardBg,
-              borderColor: theme.border,
-            }}
-            id="campaign-terms-box"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="rounded-xl p-2.5 text-white shadow-xs"
-                style={{ backgroundColor: theme.primary }}
-              >
-                <ShieldCheck className="h-4 w-4" />
-              </div>
-              <h3 className="font-display text-base font-bold">
-                Terms, Eligibility &amp; Compliance
-              </h3>
-            </div>
-            <ul className="space-y-2.5 text-xs sm:text-sm" style={{ color: theme.textMuted }}>
-              {campaign.terms.map((term: string, idx: number) => (
-                <li key={idx} className="flex items-start gap-2.5">
-                  <span
-                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
-                    style={{ backgroundColor: theme.secondary }}
-                  />
-                  <span>{term}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* 5. Footer Card inside Frame */}
-        <div
-          className="rounded-[24px] border p-6 text-center shadow-md space-y-2"
-          style={{
-            backgroundColor: theme.cardBg,
-            borderColor: theme.border,
-          }}
-        >
-          <div className="text-xs font-black tracking-widest uppercase">
-            {campaign.clientName} &bull; POWERED BY E-REDEEM
-          </div>
-          <p className="text-xs opacity-75" style={{ color: theme.textMuted }}>
-            100% fraud-proof Winning Code Iteration (WCI) cryptographic allocation engine.
-          </p>
-          <div className="pt-2">
-            <motion.button
-              whileTap={whileTapButton}
-              onClick={restartFlow}
-              className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm transition-colors hover:brightness-110"
-              style={{ backgroundColor: theme.primary }}
-            >
-              <RotateCcw className="h-3.5 w-3.5" />
-              Restart Demonstration
-            </motion.button>
-          </div>
-        </div>
-
-        {/* 6. Explore Other Live Client Campaigns */}
-        {otherCampaigns.length > 0 && (
-          <div className="space-y-4 border-t pt-6" style={{ borderColor: theme.border }}>
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <span
-                  className="rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest"
+              <div className="flex items-center rounded-full bg-white p-1.5 sm:p-2 shadow-2xl border border-white/40 backdrop-blur-xs">
+                <input
+                  type="text"
+                  value={heroInputCode}
+                  onChange={(e) => {
+                    setHeroInputCode(e.target.value);
+                    if (heroInputError) setHeroInputError(null);
+                  }}
+                  placeholder={
+                    campaign.formType === "code"
+                      ? "Enter your 8-digit code"
+                      : "Enter your phone number or code"
+                  }
+                  className="flex-1 rounded-full px-4 sm:px-6 py-2.5 sm:py-3.5 text-slate-900 font-bold placeholder:text-slate-400 bg-transparent text-sm sm:text-base font-mono uppercase focus:outline-none"
+                  autoFocus
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmittingHeroCode}
+                  className="cursor-pointer inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full px-6 sm:px-8 py-2.5 sm:py-3.5 font-black uppercase tracking-wider text-slate-950 text-xs sm:text-sm shadow-md transition-all hover:brightness-105 active:scale-95 shrink-0"
                   style={{
-                    backgroundColor: theme.cardBg,
-                    color: theme.secondary,
+                    backgroundColor: campaign.theme.secondary || "#E8C288",
                   }}
                 >
-                  More Deployments
-                </span>
-                <h3 className="mt-1 font-display text-lg font-bold tracking-tight">
-                  Explore Other Live Brand Campaigns
-                </h3>
+                  <Zap className="h-4 w-4 fill-current text-slate-950" />
+                  <span>{isSubmittingHeroCode ? "Checking..." : "Redeem"}</span>
+                </button>
               </div>
-              <Link
-                to="/campaigns"
-                className="inline-flex items-center gap-1.5 text-xs font-bold opacity-90 transition-opacity hover:opacity-100"
-                style={{ color: theme.secondary }}
-              >
-                View all client campaigns <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {otherCampaigns.map((other: ClientCampaign) => (
-                <motion.div key={other.id} whileHover={whileHoverCard} className="h-full">
-                  <Link
-                    to="/campaigns/$slug"
-                    params={{ slug: other.slug }}
-                    className="group block h-full rounded-[20px] border p-4 transition-colors hover:shadow-md"
-                    style={{
-                      backgroundColor: other.theme.surface,
-                      borderColor: other.theme.border,
-                      color: other.theme.text,
-                    }}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className="rounded px-2 py-0.5 text-[10px] font-bold uppercase"
-                        style={{
-                          backgroundColor: other.theme.primary,
-                          color: other.theme.secondary || "#FFFFFF",
-                        }}
-                      >
-                        {other.logoText}
-                      </span>
-                      <span
-                        className="rounded-full px-2 py-0.5 text-[10px] font-bold"
-                        style={{
-                          backgroundColor: other.theme.badgeBg,
-                          color: other.theme.badgeText,
-                        }}
-                      >
-                        {other.status}
-                      </span>
-                    </div>
-
-                    <h4 className="mt-2.5 line-clamp-1 font-display text-xs font-bold leading-tight group-hover:underline">
-                      {other.campaignName}
-                    </h4>
-                    <p
-                      className="mt-1 line-clamp-2 text-[11px]"
-                      style={{ color: other.theme.textMuted }}
-                    >
-                      {other.tagline}
-                    </p>
-                    <div
-                      className="mt-2.5 flex items-center justify-between border-t pt-2 text-[10px] font-bold"
-                      style={{
-                        borderColor: other.theme.border,
-                        color: other.theme.secondary,
-                      }}
-                    >
-                      <span>{other.mechanicLabel}</span>
-                      <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </Link>
+              {/* Error Message */}
+              {heroInputError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-3 inline-flex items-center gap-2 rounded-full bg-rose-600/90 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-white shadow-lg"
+                >
+                  <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+                  <span>{heroInputError}</span>
                 </motion.div>
-              ))}
+              )}
+
+              {/* Quick Sample Code Chips */}
+              {campaign.sampleValidCodes && campaign.sampleValidCodes.length > 0 && (
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-white/80">
+                  <span className="font-semibold drop-shadow-sm">Demo Codes:</span>
+                  {campaign.sampleValidCodes.map((code) => (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => {
+                        setHeroInputCode(code);
+                        if (heroInputError) setHeroInputError(null);
+                      }}
+                      className="cursor-pointer rounded-full bg-black/40 hover:bg-black/60 border border-white/20 px-3 py-1 font-mono text-[11px] font-bold text-[#FACC15] backdrop-blur-sm transition-all hover:border-amber-400"
+                    >
+                      {code}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </form>
+          </motion.div>
+        ) : (
+          /* When in active activity flow (Quiz, Wheel, KYC, Result), render inside a clean frosted modal */
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mx-auto max-w-3xl rounded-[28px] border border-white/20 bg-black/75 backdrop-blur-xl p-5 sm:p-8 shadow-2xl space-y-6 text-left"
+            style={{ borderColor: campaign.theme.border || "rgba(255,255,255,0.2)" }}
+          >
+            <div className="flex items-center justify-between border-b border-white/15 pb-4">
+              <div>
+                <h2 className="font-display text-lg sm:text-xl font-bold tracking-tight text-white">
+                  {campaign.campaignName}
+                </h2>
+                <div className="text-xs text-slate-300 mt-0.5">
+                  {campaign.rewardSummary}
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={restartFlow}
+                  className="inline-flex cursor-pointer items-center gap-1 rounded-full bg-white/10 hover:bg-white/20 px-3 py-1 text-[11px] font-bold text-white transition-colors"
+                >
+                  <RotateCcw className="h-3 w-3" />
+                  Restart
+                </button>
+                <button
+                  onClick={() => navigate({ to: "/campaigns/$slug", params: { slug: campaign.slug } })}
+                  className="grid h-8 w-8 place-items-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  title="Close step"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-          </div>
+
+            <div className="overflow-x-auto pb-2 -mx-1 px-1">
+              <CampaignFlowStepper campaign={campaign} currentStep={currentStepId} />
+            </div>
+
+            <main className="w-full pt-1 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={location.pathname}
+                  variants={prefersReducedMotion ? reducedMotionVariants : stepSlideVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <Outlet />
+                </motion.div>
+              </AnimatePresence>
+            </main>
+          </motion.div>
         )}
-      </div>
+      </main>
+
+      {/* 4. Bottom Footer Note: Terms and Condition Apply */}
+      <footer className="relative z-10 py-5 text-center text-xs font-semibold text-white/70 drop-shadow-sm">
+        Terms and Condition Apply
+      </footer>
     </div>
   );
 }

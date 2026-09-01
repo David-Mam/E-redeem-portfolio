@@ -137,79 +137,98 @@ function ClientCampaignsIndex() {
 
         {/* Grid of client campaigns - strictly uniform cards */}
         {!isLoading && !error && (
-          <ScrollStaggerContainer
-            staggerDelay={0.07}
-            className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {filteredCampaigns.map((c) => {
-              return (
-                <ScrollStaggerItem key={c.id} distance={16}>
-                  <Link
-                    to="/campaigns/$slug"
-                    params={{ slug: c.slug }}
-                    className="group flex h-full flex-col justify-between rounded-[12px] border border-[#E4E7E9] bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#CBD0D5] hover:shadow-md"
-                  >
-                    <div>
-                      {/* Top row with client badge & status */}
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="rounded-[4px] bg-[#14171A] px-2 py-0.5 text-[11px] font-bold text-white uppercase tracking-wider">
-                            {c.logoText}
-                          </span>
-                          <span className="text-xs font-semibold text-[#5B6470]">
-                            {c.clientName}
+          filteredCampaigns.length > 0 ? (
+            <ScrollStaggerContainer
+              key={filter}
+              staggerDelay={0.07}
+              className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {filteredCampaigns.map((c) => {
+                return (
+                  <ScrollStaggerItem key={c.id} distance={16}>
+                    <Link
+                      to="/campaigns/$slug"
+                      params={{ slug: c.slug }}
+                      className="group flex h-full flex-col justify-between rounded-[12px] border border-[#E4E7E9] bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#CBD0D5] hover:shadow-md"
+                    >
+                      <div>
+                        {/* Top row with client badge & status */}
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="rounded-[4px] bg-[#14171A] px-2 py-0.5 text-[11px] font-bold text-white uppercase tracking-wider">
+                              {c.logoText}
+                            </span>
+                            <span className="text-xs font-semibold text-[#5B6470]">
+                              {c.clientName}
+                            </span>
+                          </div>
+
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E4E7E9] bg-[#F7F8F5] px-2.5 py-0.5 text-[11px] font-semibold text-[#14171A]">
+                            <span
+                              className="h-2 w-2 rounded-full"
+                              style={{ backgroundColor: LIME }}
+                            />
+                            {c.status}
                           </span>
                         </div>
 
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E4E7E9] bg-[#F7F8F5] px-2.5 py-0.5 text-[11px] font-semibold text-[#14171A]">
+                        {/* Campaign title & headline */}
+                        <h3 className="mt-4 text-lg font-bold tracking-tight text-[#14171A] group-hover:text-[#FF5E3A] transition-colors">
+                          {c.campaignName}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-[#5B6470] line-clamp-2">
+                          {c.tagline}
+                        </p>
+
+                        {/* Reward callout pill */}
+                        <div className="mt-4 rounded-[8px] border border-[#E4E7E9] bg-[#F7F8F5] p-3">
+                          <div className="text-[10px] font-semibold uppercase tracking-wider text-[#5B6470]">
+                            Reward Pool
+                          </div>
+                          <div className="mt-0.5 text-xs font-bold text-[#14171A]">
+                            {c.rewardSummary}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Bottom metrics & CTA */}
+                      <div className="mt-5 border-t border-[#E4E7E9] pt-4">
+                        <div className="flex items-center justify-between text-xs text-[#5B6470]">
+                          <span className="flex items-center gap-1.5 font-medium">
+                            <Users className="h-3.5 w-3.5 text-[#5B6470]" />
+                            {c.participantsCount} entries
+                          </span>
                           <span
-                            className="h-2 w-2 rounded-full"
-                            style={{ backgroundColor: LIME }}
-                          />
-                          {c.status}
-                        </span>
-                      </div>
-
-                      {/* Campaign title & headline */}
-                      <h3 className="mt-4 text-lg font-bold tracking-tight text-[#14171A] group-hover:text-[#FF5E3A] transition-colors">
-                        {c.campaignName}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-[#5B6470] line-clamp-2">
-                        {c.tagline}
-                      </p>
-
-                      {/* Reward callout pill */}
-                      <div className="mt-4 rounded-[8px] border border-[#E4E7E9] bg-[#F7F8F5] p-3">
-                        <div className="text-[10px] font-semibold uppercase tracking-wider text-[#5B6470]">
-                          Reward Pool
-                        </div>
-                        <div className="mt-0.5 text-xs font-bold text-[#14171A]">
-                          {c.rewardSummary}
+                            className="inline-flex items-center gap-1 font-semibold transition-transform group-hover:translate-x-1"
+                            style={{ color: CORAL }}
+                          >
+                            Launch Client Page
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </span>
                         </div>
                       </div>
-                    </div>
-
-                    {/* Bottom metrics & CTA */}
-                    <div className="mt-5 border-t border-[#E4E7E9] pt-4">
-                      <div className="flex items-center justify-between text-xs text-[#5B6470]">
-                        <span className="flex items-center gap-1.5 font-medium">
-                          <Users className="h-3.5 w-3.5 text-[#5B6470]" />
-                          {c.participantsCount} entries
-                        </span>
-                        <span
-                          className="inline-flex items-center gap-1 font-semibold transition-transform group-hover:translate-x-1"
-                          style={{ color: CORAL }}
-                        >
-                          Launch Client Page
-                          <ArrowRight className="h-3.5 w-3.5" />
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </ScrollStaggerItem>
-              );
-            })}
-          </ScrollStaggerContainer>
+                    </Link>
+                  </ScrollStaggerItem>
+                );
+              })}
+            </ScrollStaggerContainer>
+          ) : (
+            <div className="my-12 rounded-[12px] border border-[#E4E7E9] bg-white p-10 text-center">
+              <p className="text-sm font-semibold text-[#14171A]">
+                No campaigns found in this category
+              </p>
+              <p className="mt-1 text-xs text-[#5B6470]">
+                Try selecting another filter or choose &quot;All Campaigns&quot;.
+              </p>
+              <button
+                type="button"
+                onClick={() => setFilter("all")}
+                className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-[8px] bg-[#FF5E3A] px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:brightness-110"
+              >
+                View All Campaigns
+              </button>
+            </div>
+          )
         )}
 
         {/* Bottom CTA to build custom client campaign */}

@@ -14,7 +14,15 @@ import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as UseCasesRouteImport } from './routes/use-cases'
 import { Route as CampaignsIndexRouteImport } from './routes/campaigns/index'
-import { Route as CampaignsCampaignRouteImport } from './routes/campaigns/$campaign'
+import { Route as CampaignsSlugRouteImport } from './routes/campaigns/$slug'
+import { Route as InteractiveCampaignsIndexRouteImport } from './routes/interactive-campaigns/index'
+import { Route as InteractiveCampaignsCampaignRouteImport } from './routes/interactive-campaigns/$campaign'
+import { Route as CampaignsSlugIndexRouteImport } from './routes/campaigns/$slug/index'
+import { Route as CampaignsSlugActivityRouteImport } from './routes/campaigns/$slug/activity'
+import { Route as CampaignsSlugCodeRouteImport } from './routes/campaigns/$slug/code'
+import { Route as CampaignsSlugKycRouteImport } from './routes/campaigns/$slug/kyc'
+import { Route as CampaignsSlugRequirementRouteImport } from './routes/campaigns/$slug/requirement'
+import { Route as CampaignsSlugResultRouteImport } from './routes/campaigns/$slug/result'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,10 +49,53 @@ const CampaignsIndexRoute = CampaignsIndexRouteImport.update({
   path: '/campaigns/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CampaignsCampaignRoute = CampaignsCampaignRouteImport.update({
-  id: '/campaigns/$campaign',
-  path: '/campaigns/$campaign',
+const CampaignsSlugRoute = CampaignsSlugRouteImport.update({
+  id: '/campaigns/$slug',
+  path: '/campaigns/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const InteractiveCampaignsIndexRoute =
+  InteractiveCampaignsIndexRouteImport.update({
+    id: '/interactive-campaigns/',
+    path: '/interactive-campaigns/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const InteractiveCampaignsCampaignRoute =
+  InteractiveCampaignsCampaignRouteImport.update({
+    id: '/interactive-campaigns/$campaign',
+    path: '/interactive-campaigns/$campaign',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CampaignsSlugIndexRoute = CampaignsSlugIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CampaignsSlugRoute,
+} as any)
+const CampaignsSlugActivityRoute = CampaignsSlugActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => CampaignsSlugRoute,
+} as any)
+const CampaignsSlugCodeRoute = CampaignsSlugCodeRouteImport.update({
+  id: '/code',
+  path: '/code',
+  getParentRoute: () => CampaignsSlugRoute,
+} as any)
+const CampaignsSlugKycRoute = CampaignsSlugKycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => CampaignsSlugRoute,
+} as any)
+const CampaignsSlugRequirementRoute =
+  CampaignsSlugRequirementRouteImport.update({
+    id: '/requirement',
+    path: '/requirement',
+    getParentRoute: () => CampaignsSlugRoute,
+  } as any)
+const CampaignsSlugResultRoute = CampaignsSlugResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => CampaignsSlugRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -52,16 +103,31 @@ export interface FileRoutesByFullPath {
   '/case-studies': typeof CaseStudiesRoute
   '/contacts': typeof ContactsRoute
   '/use-cases': typeof UseCasesRoute
-  '/campaigns/$campaign': typeof CampaignsCampaignRoute
+  '/campaigns/$slug': typeof CampaignsSlugRouteWithChildren
+  '/interactive-campaigns/$campaign': typeof InteractiveCampaignsCampaignRoute
   '/campaigns/': typeof CampaignsIndexRoute
+  '/interactive-campaigns/': typeof InteractiveCampaignsIndexRoute
+  '/campaigns/$slug/activity': typeof CampaignsSlugActivityRoute
+  '/campaigns/$slug/code': typeof CampaignsSlugCodeRoute
+  '/campaigns/$slug/kyc': typeof CampaignsSlugKycRoute
+  '/campaigns/$slug/requirement': typeof CampaignsSlugRequirementRoute
+  '/campaigns/$slug/result': typeof CampaignsSlugResultRoute
+  '/campaigns/$slug/': typeof CampaignsSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contacts': typeof ContactsRoute
   '/use-cases': typeof UseCasesRoute
-  '/campaigns/$campaign': typeof CampaignsCampaignRoute
+  '/interactive-campaigns/$campaign': typeof InteractiveCampaignsCampaignRoute
   '/campaigns': typeof CampaignsIndexRoute
+  '/interactive-campaigns': typeof InteractiveCampaignsIndexRoute
+  '/campaigns/$slug/activity': typeof CampaignsSlugActivityRoute
+  '/campaigns/$slug/code': typeof CampaignsSlugCodeRoute
+  '/campaigns/$slug/kyc': typeof CampaignsSlugKycRoute
+  '/campaigns/$slug/requirement': typeof CampaignsSlugRequirementRoute
+  '/campaigns/$slug/result': typeof CampaignsSlugResultRoute
+  '/campaigns/$slug': typeof CampaignsSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +135,16 @@ export interface FileRoutesById {
   '/case-studies': typeof CaseStudiesRoute
   '/contacts': typeof ContactsRoute
   '/use-cases': typeof UseCasesRoute
-  '/campaigns/$campaign': typeof CampaignsCampaignRoute
+  '/campaigns/$slug': typeof CampaignsSlugRouteWithChildren
+  '/interactive-campaigns/$campaign': typeof InteractiveCampaignsCampaignRoute
   '/campaigns/': typeof CampaignsIndexRoute
+  '/interactive-campaigns/': typeof InteractiveCampaignsIndexRoute
+  '/campaigns/$slug/activity': typeof CampaignsSlugActivityRoute
+  '/campaigns/$slug/code': typeof CampaignsSlugCodeRoute
+  '/campaigns/$slug/kyc': typeof CampaignsSlugKycRoute
+  '/campaigns/$slug/requirement': typeof CampaignsSlugRequirementRoute
+  '/campaigns/$slug/result': typeof CampaignsSlugResultRoute
+  '/campaigns/$slug/': typeof CampaignsSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,24 +153,47 @@ export interface FileRouteTypes {
     | '/case-studies'
     | '/contacts'
     | '/use-cases'
-    | '/campaigns/$campaign'
+    | '/campaigns/$slug'
+    | '/interactive-campaigns/$campaign'
     | '/campaigns/'
+    | '/interactive-campaigns/'
+    | '/campaigns/$slug/activity'
+    | '/campaigns/$slug/code'
+    | '/campaigns/$slug/kyc'
+    | '/campaigns/$slug/requirement'
+    | '/campaigns/$slug/result'
+    | '/campaigns/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/case-studies'
     | '/contacts'
     | '/use-cases'
-    | '/campaigns/$campaign'
+    | '/interactive-campaigns/$campaign'
     | '/campaigns'
+    | '/interactive-campaigns'
+    | '/campaigns/$slug/activity'
+    | '/campaigns/$slug/code'
+    | '/campaigns/$slug/kyc'
+    | '/campaigns/$slug/requirement'
+    | '/campaigns/$slug/result'
+    | '/campaigns/$slug'
   id:
     | '__root__'
     | '/'
     | '/case-studies'
     | '/contacts'
     | '/use-cases'
-    | '/campaigns/$campaign'
+    | '/campaigns/$slug'
+    | '/interactive-campaigns/$campaign'
     | '/campaigns/'
+    | '/interactive-campaigns/'
+    | '/campaigns/$slug/activity'
+    | '/campaigns/$slug/code'
+    | '/campaigns/$slug/kyc'
+    | '/campaigns/$slug/requirement'
+    | '/campaigns/$slug/result'
+    | '/campaigns/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -104,8 +201,10 @@ export interface RootRouteChildren {
   CaseStudiesRoute: typeof CaseStudiesRoute
   ContactsRoute: typeof ContactsRoute
   UseCasesRoute: typeof UseCasesRoute
-  CampaignsCampaignRoute: typeof CampaignsCampaignRoute
+  CampaignsSlugRoute: typeof CampaignsSlugRouteWithChildren
+  InteractiveCampaignsCampaignRoute: typeof InteractiveCampaignsCampaignRoute
   CampaignsIndexRoute: typeof CampaignsIndexRoute
+  InteractiveCampaignsIndexRoute: typeof InteractiveCampaignsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,23 +244,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CampaignsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/campaigns/$campaign': {
-      id: '/campaigns/$campaign'
-      path: '/campaigns/$campaign'
-      fullPath: '/campaigns/$campaign'
-      preLoaderRoute: typeof CampaignsCampaignRouteImport
+    '/campaigns/$slug': {
+      id: '/campaigns/$slug'
+      path: '/campaigns/$slug'
+      fullPath: '/campaigns/$slug'
+      preLoaderRoute: typeof CampaignsSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/interactive-campaigns/': {
+      id: '/interactive-campaigns/'
+      path: '/interactive-campaigns'
+      fullPath: '/interactive-campaigns/'
+      preLoaderRoute: typeof InteractiveCampaignsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interactive-campaigns/$campaign': {
+      id: '/interactive-campaigns/$campaign'
+      path: '/interactive-campaigns/$campaign'
+      fullPath: '/interactive-campaigns/$campaign'
+      preLoaderRoute: typeof InteractiveCampaignsCampaignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/campaigns/$slug/': {
+      id: '/campaigns/$slug/'
+      path: '/'
+      fullPath: '/campaigns/$slug/'
+      preLoaderRoute: typeof CampaignsSlugIndexRouteImport
+      parentRoute: typeof CampaignsSlugRoute
+    }
+    '/campaigns/$slug/activity': {
+      id: '/campaigns/$slug/activity'
+      path: '/activity'
+      fullPath: '/campaigns/$slug/activity'
+      preLoaderRoute: typeof CampaignsSlugActivityRouteImport
+      parentRoute: typeof CampaignsSlugRoute
+    }
+    '/campaigns/$slug/code': {
+      id: '/campaigns/$slug/code'
+      path: '/code'
+      fullPath: '/campaigns/$slug/code'
+      preLoaderRoute: typeof CampaignsSlugCodeRouteImport
+      parentRoute: typeof CampaignsSlugRoute
+    }
+    '/campaigns/$slug/kyc': {
+      id: '/campaigns/$slug/kyc'
+      path: '/kyc'
+      fullPath: '/campaigns/$slug/kyc'
+      preLoaderRoute: typeof CampaignsSlugKycRouteImport
+      parentRoute: typeof CampaignsSlugRoute
+    }
+    '/campaigns/$slug/requirement': {
+      id: '/campaigns/$slug/requirement'
+      path: '/requirement'
+      fullPath: '/campaigns/$slug/requirement'
+      preLoaderRoute: typeof CampaignsSlugRequirementRouteImport
+      parentRoute: typeof CampaignsSlugRoute
+    }
+    '/campaigns/$slug/result': {
+      id: '/campaigns/$slug/result'
+      path: '/result'
+      fullPath: '/campaigns/$slug/result'
+      preLoaderRoute: typeof CampaignsSlugResultRouteImport
+      parentRoute: typeof CampaignsSlugRoute
     }
   }
 }
+
+interface CampaignsSlugRouteChildren {
+  CampaignsSlugActivityRoute: typeof CampaignsSlugActivityRoute
+  CampaignsSlugCodeRoute: typeof CampaignsSlugCodeRoute
+  CampaignsSlugKycRoute: typeof CampaignsSlugKycRoute
+  CampaignsSlugRequirementRoute: typeof CampaignsSlugRequirementRoute
+  CampaignsSlugResultRoute: typeof CampaignsSlugResultRoute
+  CampaignsSlugIndexRoute: typeof CampaignsSlugIndexRoute
+}
+
+const CampaignsSlugRouteChildren: CampaignsSlugRouteChildren = {
+  CampaignsSlugActivityRoute: CampaignsSlugActivityRoute,
+  CampaignsSlugCodeRoute: CampaignsSlugCodeRoute,
+  CampaignsSlugKycRoute: CampaignsSlugKycRoute,
+  CampaignsSlugRequirementRoute: CampaignsSlugRequirementRoute,
+  CampaignsSlugResultRoute: CampaignsSlugResultRoute,
+  CampaignsSlugIndexRoute: CampaignsSlugIndexRoute,
+}
+
+const CampaignsSlugRouteWithChildren = CampaignsSlugRoute._addFileChildren(
+  CampaignsSlugRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaseStudiesRoute: CaseStudiesRoute,
   ContactsRoute: ContactsRoute,
   UseCasesRoute: UseCasesRoute,
-  CampaignsCampaignRoute: CampaignsCampaignRoute,
+  CampaignsSlugRoute: CampaignsSlugRouteWithChildren,
+  InteractiveCampaignsCampaignRoute: InteractiveCampaignsCampaignRoute,
   CampaignsIndexRoute: CampaignsIndexRoute,
+  InteractiveCampaignsIndexRoute: InteractiveCampaignsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

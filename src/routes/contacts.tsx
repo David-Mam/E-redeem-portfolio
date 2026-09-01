@@ -45,7 +45,7 @@ function Contacts() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <ScrollReveal direction="up" distance={18}>
             <Eyebrow>Contacts</Eyebrow>
-            <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+            <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Let's build your next campaign.
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-slate-600">
@@ -76,16 +76,16 @@ function Contacts() {
             direction="up"
             distance={18}
             delay={0.1}
-            className="rounded-[2.25rem] border border-slate-200 bg-slate-50 p-8 sm:p-10 w-fit lg:min-w-[45%] max-w-full self-start shadow-[0_24px_60px_-26px_rgba(15,23,42,0.2)]"
+            className="rounded-2xl border border-slate-200 bg-slate-50/80 p-8 sm:p-10 w-full shadow-editorial"
           >
             <div className="text-base font-semibold uppercase tracking-[0.24em] text-slate-500">
               Get in touch
             </div>
             <ul className="mt-8 space-y-6">
               {details.map((d) => (
-                <li key={d.label} className="flex items-start gap-5 sm:gap-6">
+                <li key={d.label} className="flex items-start gap-5 sm:gap-6 group">
                   <span
-                    className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl"
+                    className="grid h-12 w-12 shrink-0 place-items-center rounded-xl shadow-xs transition-transform duration-200 group-hover:scale-105"
                     style={{ background: LIME }}
                   >
                     <d.icon className="h-5 w-5 text-slate-900" />
@@ -97,7 +97,7 @@ function Contacts() {
                     {d.href ? (
                       <a
                         href={d.href}
-                        className="mt-1 block text-base font-medium text-slate-800 hover:text-slate-900"
+                        className="mt-1 block text-base font-medium text-slate-800 hover:text-coral transition-colors"
                       >
                         {d.value}
                       </a>
@@ -118,13 +118,13 @@ function Contacts() {
         <ScrollReveal
           direction="up"
           distance={20}
-          className="rounded-[2.25rem] border border-slate-200 bg-slate-50 p-8 shadow-[0_24px_60px_-26px_rgba(15,23,42,0.2)] sm:p-10"
+          className="rounded-2xl border border-slate-200 bg-slate-50/80 p-8 shadow-editorial sm:p-12"
         >
           <div className="max-w-3xl">
             <div className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
               Request a demo
             </div>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Ready to launch your campaign?
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate-600">

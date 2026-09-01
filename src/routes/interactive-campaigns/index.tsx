@@ -19,7 +19,7 @@ function InteractiveCampaignsIndex() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <ScrollReveal direction="up" distance={16} className="max-w-3xl">
           <Eyebrow>Interactive Campaign Mechanics</Eyebrow>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Reach every consumer, on every channel they use.
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-slate-600">
@@ -49,7 +49,7 @@ function InteractiveCampaignsIndex() {
           className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-slate-900 p-8 sm:p-10"
         >
           <div className="max-w-xl">
-            <h2 className="text-2xl font-bold tracking-tight text-white">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-white">
               Not sure which mechanic fits?
             </h2>
             <p className="mt-2 text-slate-300">
