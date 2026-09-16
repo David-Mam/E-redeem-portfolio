@@ -125,7 +125,7 @@ export function ClientShortCodeView({
           </h3>
         </div>
         <div
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-bold font-mono"
+          className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-bold tabular-nums"
           style={{
             borderColor: theme.border,
             backgroundColor: theme.cardBg,
@@ -185,7 +185,7 @@ export function ClientShortCodeView({
                     placeholder="0803 123 4567"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 rounded-xl border text-sm font-mono focus:outline-none"
+                    className="w-full pl-11 pr-4 py-3 rounded-xl border text-sm tabular-nums focus:outline-none"
                     style={{
                       backgroundColor: theme.background,
                       borderColor: theme.border,
@@ -213,7 +213,7 @@ export function ClientShortCodeView({
                   placeholder="e.g. RB-7729-K8"
                   value={code}
                   onChange={(e) => setCode(e.target.value.toUpperCase())}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border text-sm font-mono font-bold tracking-widest uppercase focus:outline-none"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border text-sm tabular-nums font-bold tracking-widest uppercase focus:outline-none"
                   style={{
                     backgroundColor: theme.background,
                     borderColor: theme.border,
@@ -265,7 +265,7 @@ export function ClientShortCodeView({
                     key={s}
                     type="button"
                     onClick={() => handleUseSampleCode(s)}
-                    className="px-2.5 py-1 rounded-lg border font-mono font-bold hover:brightness-125 transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg border tabular-nums font-bold hover:brightness-125 transition-all flex items-center gap-1 cursor-pointer"
                     style={{
                       backgroundColor: theme.background,
                       borderColor: theme.border,
@@ -317,7 +317,7 @@ export function ClientShortCodeView({
                     {redemptionResult.prize}
                   </div>
                   <div
-                    className="pt-2 border-t flex justify-between text-slate-400 font-mono text-[11px]"
+                    className="pt-2 border-t flex justify-between text-slate-400 tabular-nums text-[11px]"
                     style={{ borderColor: theme.border }}
                   >
                     <span>Ref Code:</span>
@@ -370,7 +370,7 @@ export function ClientShortCodeView({
                 algorithm safely awards prizes on real-time intervals.
               </p>
               <div
-                className="p-3 rounded-xl border text-left text-xs space-y-1 font-mono"
+                className="p-3 rounded-xl border text-left text-xs space-y-1 tabular-nums"
                 style={{ backgroundColor: theme.background, borderColor: theme.border }}
               >
                 <div className="text-slate-400">USSD Direct Entry:</div>

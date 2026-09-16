@@ -15,45 +15,44 @@ export const Route = createFileRoute("/case-studies")({
 
 function CaseStudies() {
   return (
-    <section className="bg-white overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <ScrollReveal direction="up" distance={16} className="max-w-3xl">
+    <section className="bg-[#F7F8F5] min-h-screen overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <ScrollReveal direction="up" distance={12} className="max-w-3xl">
           <Eyebrow>Case Studies</Eyebrow>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+          <h1 className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#14171A]">
             Proven campaigns for household brands.
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-slate-600">
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#5B6470]">
             Eight years of consumer engagement expertise — deployed for FMCG, spirits and telco
             category leaders across Nigeria.
           </p>
         </ScrollReveal>
 
-        <ScrollStaggerContainer staggerDelay={0.09} className="mt-12 grid gap-6 lg:grid-cols-3">
+        <ScrollStaggerContainer staggerDelay={0.06} className="mt-10 grid gap-6 lg:grid-cols-3">
           {caseStudies.map((c) => (
-            <ScrollStaggerItem key={c.brand} distance={18}>
-              <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 shadow-editorial transition-all duration-300 hover:border-slate-300 hover:shadow-2xl">
-                <div className="absolute top-0 left-0 right-0 h-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: `linear-gradient(90deg, ${CORAL}, ${LIME})` }} />
+            <ScrollStaggerItem key={c.brand} distance={14}>
+              <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[12px] border border-[#E4E7E9] bg-white p-6 sm:p-7 shadow-xs transition-all duration-200 hover:border-[#CBD0D6] hover:shadow-card hover:-translate-y-0.5">
                 <div>
                   <div className="flex items-center justify-between">
                     <span
-                      className="grid h-12 w-12 place-items-center rounded-xl shadow-xs transition-transform duration-300 group-hover:scale-105"
-                      style={{ background: `${CORAL}15` }}
+                      className="grid h-11 w-11 place-items-center rounded-[8px] shadow-2xs"
+                      style={{ background: `${CORAL}14` }}
                     >
-                      <c.icon className="h-6 w-6" style={{ color: CORAL }} />
+                      <c.icon className="h-5 w-5" style={{ color: CORAL }} />
                     </span>
-                    <span className="font-display text-3xl font-bold tracking-tight" style={{ color: CORAL }}>
+                    <span className="font-display text-2xl sm:text-3xl font-semibold tracking-tight" style={{ color: CORAL }}>
                       {c.stat}
                     </span>
                   </div>
-                  <h2 className="mt-6 font-display text-xl font-bold tracking-tight text-slate-900 group-hover:text-coral transition-colors">{c.brand}</h2>
-                  <div className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+                  <h2 className="mt-5 font-display text-lg font-semibold tracking-tight text-[#14171A] group-hover:text-coral transition-colors">{c.brand}</h2>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#5B6470] mt-0.5">
                     {c.label}
                   </div>
-                  <p className="mt-4 text-sm leading-relaxed text-slate-600">{c.blurb}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-[#5B6470]">{c.blurb}</p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
+                <div className="mt-6 pt-4 border-t border-[#E4E7E9] flex items-center justify-between text-[11px] font-medium text-[#5B6470]">
                   <span>Verified FMCG Campaign</span>
-                  <span className="font-semibold text-slate-700">WCI Engine</span>
+                  <span className="font-bold text-[#14171A]">WCI Engine</span>
                 </div>
               </div>
             </ScrollStaggerItem>
@@ -62,41 +61,41 @@ function CaseStudies() {
 
         <ScrollReveal
           direction="up"
-          distance={12}
-          delay={0.1}
-          className="mt-12 flex items-center gap-2 border-t border-dashed border-slate-200 pt-6"
+          distance={10}
+          delay={0.05}
+          className="mt-10 flex items-center gap-2 border-t border-[#E4E7E9] pt-5"
         >
           <span
-            className="grid h-6 w-6 place-items-center rounded-full shadow-2xs"
+            className="grid h-5 w-5 place-items-center rounded-full shadow-2xs"
             style={{ background: LIME }}
           >
-            <CheckCircle2 className="h-3.5 w-3.5 text-slate-900" />
+            <CheckCircle2 className="h-3 w-3 text-[#14171A]" />
           </span>
-          <span className="text-xs font-semibold uppercase tracking-widest text-slate-600">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#5B6470]">
             Verified deployments · 2019 – 2026
           </span>
         </ScrollReveal>
 
         <ScrollReveal
           direction="up"
-          distance={18}
-          className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 rounded-2xl bg-slate-900 p-8 sm:p-10 shadow-editorial"
+          distance={14}
+          className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 rounded-[12px] bg-[#14171A] p-7 sm:p-9 shadow-panel text-white"
         >
           <div className="max-w-xl">
-            <h2 className="font-display text-2xl font-bold tracking-tight text-white">
+            <h2 className="font-display text-xl sm:text-2xl font-semibold tracking-tight text-white">
               Want results like these?
             </h2>
-            <p className="mt-2 text-slate-300">
+            <p className="mt-1.5 text-sm text-slate-300">
               Talk to the E-Redeem team about your next consumer engagement campaign.
             </p>
           </div>
           <Link
             to="/contacts"
-            className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-md px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:brightness-110"
+            className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-[8px] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:brightness-105"
             style={{ background: CORAL }}
           >
             Start a conversation
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </ScrollReveal>
       </div>

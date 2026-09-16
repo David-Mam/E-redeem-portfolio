@@ -142,7 +142,7 @@ export function KycFormStep({
             Participant Details
           </span>
           <h3
-            className="mt-1.5 font-display text-xl sm:text-2xl font-bold tracking-tight"
+            className="mt-1.5 font-display text-xl sm:text-2xl font-semibold tracking-tight"
             style={{ color: theme.text || "#14171A" }}
           >
             Participant Registration &amp; Verification

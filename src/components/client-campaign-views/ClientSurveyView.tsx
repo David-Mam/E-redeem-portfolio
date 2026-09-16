@@ -232,7 +232,7 @@ export function ClientSurveyView({
             {!isStepFlow && (
               <div className="flex items-center justify-center gap-2 pt-2">
                 <div
-                  className="px-6 py-3.5 rounded-2xl border font-mono font-black text-lg tracking-widest uppercase shadow-inner"
+                  className="px-6 py-3.5 rounded-2xl border tabular-nums font-black text-lg tracking-widest uppercase shadow-inner"
                   style={{
                     backgroundColor: theme.background,
                     borderColor: theme.secondary,

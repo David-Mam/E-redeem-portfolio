@@ -127,7 +127,7 @@ export function ClientQuizView({ campaign, onComplete, isStepFlow = false }: Cli
 
             <div className="flex items-center gap-2">
               <div
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-bold font-mono"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-bold tabular-nums"
                 style={{
                   borderColor: theme.border,
                   backgroundColor: theme.cardBg,

@@ -80,19 +80,19 @@ function CampaignActivityRoute() {
   const renderMechanic = () => {
     switch (campaign.mechanicType) {
       case "quiz":
-        return <ClientQuizView campaign={campaign} onComplete={submitActivity} />;
+        return <ClientQuizView campaign={campaign} onComplete={submitActivity} isStepFlow={true} />;
       case "short-code":
-        return <ClientShortCodeView campaign={campaign} onComplete={submitActivity} />;
+        return <ClientShortCodeView campaign={campaign} onComplete={submitActivity} isStepFlow={true} />;
       case "raffle":
-        return <ClientRaffleWheelView campaign={campaign} onComplete={submitActivity} />;
+        return <ClientRaffleWheelView campaign={campaign} onComplete={submitActivity} isStepFlow={true} />;
       case "vote":
-        return <ClientVoteView campaign={campaign} onComplete={submitActivity} />;
+        return <ClientVoteView campaign={campaign} onComplete={submitActivity} isStepFlow={true} />;
       case "poll":
-        return <ClientPollView campaign={campaign} onComplete={submitActivity} />;
+        return <ClientPollView campaign={campaign} onComplete={submitActivity} isStepFlow={true} />;
       case "survey":
-        return <ClientSurveyView campaign={campaign} onComplete={submitActivity} />;
+        return <ClientSurveyView campaign={campaign} onComplete={submitActivity} isStepFlow={true} />;
       default:
-        return <ClientQuizView campaign={campaign} onComplete={submitActivity} />;
+        return <ClientQuizView campaign={campaign} onComplete={submitActivity} isStepFlow={true} />;
     }
   };
 

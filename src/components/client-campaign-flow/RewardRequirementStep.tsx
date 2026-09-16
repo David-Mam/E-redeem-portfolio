@@ -179,7 +179,7 @@ export function RewardRequirementStep({
           Reward Fulfillment
         </span>
         <h3
-          className="mt-1.5 font-display text-2xl sm:text-3xl font-bold tracking-tight"
+          className="mt-1.5 font-display text-2xl sm:text-3xl font-semibold tracking-tight"
           style={{ color: theme.text || "#14171A" }}
         >
           One last step
@@ -244,7 +244,7 @@ export function RewardRequirementStep({
                   value={formData.accountNumber}
                   onChange={(e) => handleChange("accountNumber", e.target.value.replace(/\D/g, ""))}
                   placeholder="0123456789"
-                  className="w-full px-4 py-3 rounded-[4px] border text-base font-mono font-bold tracking-wider focus:outline-none focus:ring-2 focus:ring-[#FF5E3A] transition-colors"
+                  className="w-full px-4 py-3 rounded-[4px] border text-base tabular-nums font-bold tracking-wider focus:outline-none focus:ring-2 focus:ring-[#FF5E3A] transition-colors"
                   style={{
                     backgroundColor: theme.cardBg || "#FFFFFF",
                     borderColor: errors.accountNumber ? "#D64545" : theme.border || "#E4E7E9",
@@ -267,7 +267,7 @@ export function RewardRequirementStep({
                 }}
               >
                 <span style={{ color: theme.textMuted || "#657786" }}>Verified Account Name:</span>
-                <span className="font-mono font-bold" style={{ color: theme.text || "#14171A" }}>
+                <span className="tabular-nums font-bold" style={{ color: theme.text || "#14171A" }}>
                   {formData.accountName}
                 </span>
               </div>
@@ -324,7 +324,7 @@ export function RewardRequirementStep({
                   value={formData.recipientPhone}
                   onChange={(e) => handleChange("recipientPhone", e.target.value)}
                   placeholder="080X XXX XXXX"
-                  className="w-full px-4 py-3 rounded-[4px] border text-base font-mono font-bold tracking-wider focus:outline-none focus:ring-2 focus:ring-[#FF5E3A] transition-colors"
+                  className="w-full px-4 py-3 rounded-[4px] border text-base tabular-nums font-bold tracking-wider focus:outline-none focus:ring-2 focus:ring-[#FF5E3A] transition-colors"
                   style={{
                     backgroundColor: theme.cardBg || "#FFFFFF",
                     borderColor: errors.recipientPhone ? "#D64545" : theme.border || "#E4E7E9",

@@ -168,7 +168,7 @@ export function ClientPollView({ campaign, onComplete, isStepFlow = false }: Cli
                   placeholder="Enter Telco Phone Number (e.g. 0812...)"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="flex-1 px-4 py-3 rounded-xl border text-sm font-mono focus:outline-none"
+                  className="flex-1 px-4 py-3 rounded-xl border text-sm tabular-nums focus:outline-none"
                   style={{
                     backgroundColor: theme.background,
                     borderColor: theme.border,
@@ -231,7 +231,7 @@ export function ClientPollView({ campaign, onComplete, isStepFlow = false }: Cli
                         </span>
                       )}
                     </span>
-                    <span className="font-mono">{pct}%</span>
+                    <span className="tabular-nums">{pct}%</span>
                   </div>
 
                   <div
