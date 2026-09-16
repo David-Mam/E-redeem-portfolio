@@ -200,7 +200,7 @@ export function ClientVoteView({ campaign, onComplete, isStepFlow = false }: Cli
                   placeholder="Enter Mobile Number (080...)"
                   value={voterPhone}
                   onChange={(e) => setVoterPhone(e.target.value)}
-                  className="flex-1 px-4 py-3 rounded-xl border text-sm font-mono focus:outline-none"
+                  className="flex-1 px-4 py-3 rounded-xl border text-sm tabular-nums focus:outline-none"
                   style={{
                     backgroundColor: theme.background,
                     borderColor: theme.border,
@@ -279,7 +279,7 @@ export function ClientVoteView({ campaign, onComplete, isStepFlow = false }: Cli
                         </span>
                       )}
                     </span>
-                    <span className="font-mono font-bold">
+                    <span className="tabular-nums font-bold">
                       {c.votes.toLocaleString()} ({pct}%)
                     </span>
                   </div>

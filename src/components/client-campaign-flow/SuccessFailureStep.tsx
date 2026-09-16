@@ -88,7 +88,7 @@ export function SuccessFailureStep({ campaign, flowState, onRestart }: SuccessFa
             Activity Incomplete
           </span>
           <h3
-            className="font-display text-2xl sm:text-3xl font-bold tracking-tight"
+            className="font-display text-2xl sm:text-3xl font-semibold tracking-tight"
             style={{ color: theme.text || "#14171A" }}
           >
             Entry Not Qualified For Reward
@@ -165,7 +165,7 @@ export function SuccessFailureStep({ campaign, flowState, onRestart }: SuccessFa
             Official Reward Verified
           </span>
           <h2
-            className="font-display text-2xl sm:text-3xl font-bold tracking-tight"
+            className="font-display text-2xl sm:text-3xl font-semibold tracking-tight"
             style={{ color: theme.text || "#14171A" }}
           >
             Congratulations, {flowState.kycData.fullName || "Winner"}!
@@ -196,7 +196,7 @@ export function SuccessFailureStep({ campaign, flowState, onRestart }: SuccessFa
               Prize Reward
             </div>
             <div
-              className="font-display text-xl font-bold"
+              className="font-display text-xl font-semibold"
               style={{ color: theme.primary || "#FF5E3A" }}
             >
               {campaign.rewardName || campaign.rewardValue}
@@ -211,7 +211,7 @@ export function SuccessFailureStep({ campaign, flowState, onRestart }: SuccessFa
               Verification Ref #
             </div>
             <div
-              className="flex items-center gap-1.5 font-mono text-sm font-bold"
+              className="flex items-center gap-1.5 tabular-nums text-sm font-bold"
               style={{ color: theme.text || "#14171A" }}
             >
               <span>{flowState.transactionRef}</span>
@@ -251,7 +251,7 @@ export function SuccessFailureStep({ campaign, flowState, onRestart }: SuccessFa
             <div className="space-y-0.5">
               <span style={{ color: theme.textMuted || "#657786" }}>Code Used:</span>
               <div
-                className="font-mono font-bold uppercase"
+                className="tabular-nums font-bold uppercase"
                 style={{ color: theme.primary || "#FF5E3A" }}
               >
                 {flowState.enteredCode}

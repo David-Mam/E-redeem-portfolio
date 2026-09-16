@@ -154,25 +154,25 @@ function CampaignContent({
         {/* Top Close (×) Exit Button to return to all campaigns */}
         <Link
           to="/campaigns"
-          className="group grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full bg-black/40 hover:bg-black/70 border border-white/25 backdrop-blur-md text-white transition-all shadow-lg active:scale-95"
+          className="group grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-[8px] bg-black/50 hover:bg-black/80 border border-white/25 backdrop-blur-md text-white transition-all shadow-md active:scale-95"
           title="Exit Campaign"
         >
-          <X className="h-5 w-5 transition-transform group-hover:scale-110" />
+          <X className="h-4 w-4 transition-transform group-hover:scale-110" />
         </Link>
       </header>
 
-      {/* 3. Main Center Content: Massive Headline, Subhead, and Rounded-Full Pill Input Bar */}
+      {/* 3. Main Center Content: Structured Enterprise Console */}
       <main className="relative z-10 mx-auto max-w-4xl px-4 text-center my-auto py-6 sm:py-10">
         {!isInsideActiveStep ? (
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.3 }}
             className="space-y-4 sm:space-y-6"
           >
             {/* Big 3-Line Bold Headline */}
             <div className="space-y-1 sm:space-y-2">
-              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-lg uppercase leading-[1.08]">
+              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white drop-shadow-lg uppercase leading-[1.08]">
                 WIN{" "}
                 {campaign.rewardType === "airtime"
                   ? "Free Airtime & Data"
@@ -181,27 +181,27 @@ function CampaignContent({
                     : "Exclusive Brand Prizes"}{" "}
                 At
               </h1>
-              <div className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight drop-shadow-lg uppercase text-[#22C55E] leading-[1.08]">
+              <div className="font-display text-3xl sm:text-5xl md:text-6xl font-black tracking-tight drop-shadow-lg uppercase text-[#22C55E] leading-[1.08]">
                 {campaign.clientName}
               </div>
-              <div className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight drop-shadow-lg uppercase text-[#FACC15] leading-[1.08]">
+              <div className="font-display text-3xl sm:text-5xl md:text-6xl font-black tracking-tight drop-shadow-lg uppercase text-[#FACC15] leading-[1.08]">
                 2026
               </div>
             </div>
 
             {/* Subhead / Instructions */}
-            <p className="mx-auto max-w-2xl text-sm sm:text-lg font-medium text-slate-100 drop-shadow-md leading-relaxed">
+            <p className="mx-auto max-w-2xl text-sm sm:text-base font-medium text-slate-100 drop-shadow-md leading-relaxed">
               {campaign.formType === "code"
                 ? "Scan the QR code, Input your on-pack promo code and stand a chance to win instant rewards."
                 : campaign.tagline}
             </p>
 
-            {/* Rounded-Full Pill Bar: Input + Redeem Button Inside */}
+            {/* Structured Enterprise Code Input Terminal */}
             <form
               onSubmit={handleHeroCodeSubmit}
-              className="mx-auto mt-6 sm:mt-8 max-w-xl"
+              className="mx-auto mt-6 sm:mt-8 max-w-lg"
             >
-              <div className="flex items-center rounded-full bg-white p-1.5 sm:p-2 shadow-2xl border border-white/40 backdrop-blur-xs">
+              <div className="flex items-center rounded-[8px] bg-white p-1.5 shadow-panel border border-white/40 backdrop-blur-xs">
                 <input
                   type="text"
                   value={heroInputCode}
@@ -214,18 +214,18 @@ function CampaignContent({
                       ? "Enter your 8-digit code"
                       : "Enter your phone number or code"
                   }
-                  className="flex-1 rounded-full px-4 sm:px-6 py-2.5 sm:py-3.5 text-slate-900 font-bold placeholder:text-slate-400 bg-transparent text-sm sm:text-base font-mono uppercase focus:outline-none"
+                  className="flex-1 rounded-[4px] px-4 py-2.5 sm:py-3 text-slate-900 font-bold placeholder:text-slate-400 bg-transparent text-sm sm:text-base tabular-nums uppercase focus:outline-none"
                   autoFocus
                 />
                 <button
                   type="submit"
                   disabled={isSubmittingHeroCode}
-                  className="cursor-pointer inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full px-6 sm:px-8 py-2.5 sm:py-3.5 font-black uppercase tracking-wider text-slate-950 text-xs sm:text-sm shadow-md transition-all hover:brightness-105 active:scale-95 shrink-0"
+                  className="cursor-pointer inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-[6px] px-5 sm:px-7 py-2.5 sm:py-3 font-bold uppercase tracking-wider text-slate-950 text-xs sm:text-sm shadow-xs transition-all hover:brightness-105 active:scale-[0.985] shrink-0"
                   style={{
                     backgroundColor: campaign.theme.secondary || "#E8C288",
                   }}
                 >
-                  <Zap className="h-4 w-4 fill-current text-slate-950" />
+                  <Zap className="h-3.5 w-3.5 fill-current text-slate-950" />
                   <span>{isSubmittingHeroCode ? "Checking..." : "Redeem"}</span>
                 </button>
               </div>
@@ -233,9 +233,9 @@ function CampaignContent({
               {/* Error Message */}
               {heroInputError && (
                 <motion.div
-                  initial={{ opacity: 0, y: -6 }}
+                  initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-3 inline-flex items-center gap-2 rounded-full bg-rose-600/90 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-white shadow-lg"
+                  className="mt-3 inline-flex items-center gap-2 rounded-[4px] bg-rose-600/95 backdrop-blur-md px-3.5 py-1.5 text-xs font-bold text-white shadow-md"
                 >
                   <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                   <span>{heroInputError}</span>
@@ -245,7 +245,7 @@ function CampaignContent({
               {/* Quick Sample Code Chips */}
               {campaign.sampleValidCodes && campaign.sampleValidCodes.length > 0 && (
                 <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-white/80">
-                  <span className="font-semibold drop-shadow-sm">Demo Codes:</span>
+                  <span className="font-semibold drop-shadow-sm text-[11px] uppercase tracking-wider">Demo Codes:</span>
                   {campaign.sampleValidCodes.map((code) => (
                     <button
                       key={code}
@@ -254,7 +254,7 @@ function CampaignContent({
                         setHeroInputCode(code);
                         if (heroInputError) setHeroInputError(null);
                       }}
-                      className="cursor-pointer rounded-full bg-black/40 hover:bg-black/60 border border-white/20 px-3 py-1 font-mono text-[11px] font-bold text-[#FACC15] backdrop-blur-sm transition-all hover:border-amber-400"
+                      className="cursor-pointer rounded-[4px] bg-black/50 hover:bg-black/70 border border-white/20 px-2.5 py-1 tabular-nums text-[11px] font-bold text-[#FACC15] backdrop-blur-sm transition-all hover:border-amber-400"
                     >
                       {code}
                     </button>
@@ -266,14 +266,14 @@ function CampaignContent({
         ) : (
           /* When in active activity flow (Quiz, Wheel, KYC, Result), render inside a clean frosted modal */
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mx-auto max-w-3xl rounded-[28px] border border-white/20 bg-black/75 backdrop-blur-xl p-5 sm:p-8 shadow-2xl space-y-6 text-left"
+            className="mx-auto max-w-3xl rounded-[20px] border border-white/20 bg-black/80 backdrop-blur-xl p-5 sm:p-8 shadow-panel space-y-5 text-left"
             style={{ borderColor: campaign.theme.border || "rgba(255,255,255,0.2)" }}
           >
             <div className="flex items-center justify-between border-b border-white/15 pb-4">
               <div>
-                <h2 className="font-display text-lg sm:text-xl font-bold tracking-tight text-white">
+                <h2 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-white">
                   {campaign.campaignName}
                 </h2>
                 <div className="text-xs text-slate-300 mt-0.5">
@@ -283,14 +283,14 @@ function CampaignContent({
               <div className="flex items-center gap-2">
                 <button
                   onClick={restartFlow}
-                  className="inline-flex cursor-pointer items-center gap-1 rounded-full bg-white/10 hover:bg-white/20 px-3 py-1 text-[11px] font-bold text-white transition-colors"
+                  className="inline-flex cursor-pointer items-center gap-1 rounded-[6px] bg-white/10 hover:bg-white/20 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white transition-colors"
                 >
                   <RotateCcw className="h-3 w-3" />
                   Restart
                 </button>
                 <button
                   onClick={() => navigate({ to: "/campaigns/$slug", params: { slug: campaign.slug } })}
-                  className="grid h-8 w-8 place-items-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  className="grid h-8 w-8 place-items-center rounded-[6px] bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
                   title="Close step"
                 >
                   <X className="h-4 w-4" />
@@ -298,7 +298,7 @@ function CampaignContent({
               </div>
             </div>
 
-            <div className="overflow-x-auto pb-2 -mx-1 px-1">
+            <div className="overflow-x-auto pb-1 -mx-1 px-1">
               <CampaignFlowStepper campaign={campaign} currentStep={currentStepId} />
             </div>
 
@@ -320,7 +320,7 @@ function CampaignContent({
       </main>
 
       {/* 4. Bottom Footer Note: Terms and Condition Apply */}
-      <footer className="relative z-10 py-5 text-center text-xs font-semibold text-white/70 drop-shadow-sm">
+      <footer className="relative z-10 py-5 text-center text-xs font-semibold text-white/70 drop-shadow-sm uppercase tracking-wider">
         Terms and Condition Apply
       </footer>
     </div>

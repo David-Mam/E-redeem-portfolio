@@ -171,7 +171,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <p className="mt-1 font-r-display text-xl text-r-ink">
               ₦500 Shopping Voucher Voucher Unlocked
             </p>
-            <div className="mt-3 inline-block rounded-md bg-white px-4 py-2 font-mono text-sm font-bold tracking-widest text-slate-900 shadow-sm">
+            <div className="mt-3 inline-block rounded-md bg-white px-4 py-2 tabular-nums text-sm font-bold tracking-widest text-slate-900 shadow-sm">
               EXCITE-SURVEY-882
             </div>
           </div>

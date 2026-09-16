@@ -52,93 +52,92 @@ function InteractiveCampaignPage() {
   }, [prize]);
 
   return (
-    <section className="bg-white overflow-hidden py-12 sm:py-16 lg:py-20">
+    <section className="bg-[#F7F8F5] min-h-screen overflow-hidden py-10 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
-        <ScrollReveal direction="up" distance={12}>
+        <ScrollReveal direction="up" distance={10}>
           <Link
             to="/interactive-campaigns"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-slate-900"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#5B6470] transition-colors hover:text-[#14171A]"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-3.5 w-3.5" />
             All campaign mechanics
           </Link>
         </ScrollReveal>
 
         {/* Hero Section */}
-        <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-center">
-          <ScrollReveal direction="up" distance={18} className="lg:col-span-7">
+        <div className="mt-6 grid gap-8 lg:grid-cols-12 lg:items-center">
+          <ScrollReveal direction="up" distance={12} className="lg:col-span-7">
             <Eyebrow>Campaign Mechanic</Eyebrow>
-            <div className="mt-4 flex items-center gap-4">
+            <div className="mt-3 flex items-center gap-3.5">
               <span
-                className="grid h-14 w-14 shrink-0 place-items-center rounded-xl shadow-xs"
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-[8px] shadow-xs"
                 style={{ background: LIME }}
               >
-                <campaign.icon className="h-7 w-7 text-slate-900" />
+                <campaign.icon className="h-6 w-6 text-[#14171A]" />
               </span>
-              <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+              <h1 className="font-display text-3xl font-semibold tracking-tight text-[#14171A] sm:text-4xl lg:text-5xl">
                 {campaign.label}
               </h1>
             </div>
-            <p className="mt-6 text-lg leading-relaxed text-slate-600 max-w-2xl">
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#5B6470] max-w-2xl">
               {campaign.description}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <motion.button
                 type="button"
                 id="see-in-action-btn"
                 whileTap={whileTapButton}
                 onClick={() => setDemoOpen(true)}
-                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold text-slate-900 shadow-sm transition-colors hover:bg-slate-100 uppercase tracking-wider"
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[8px] px-6 py-3 text-xs font-bold text-[#14171A] shadow-xs transition-colors hover:brightness-105 uppercase tracking-wider"
                 style={{ background: LIME }}
               >
-                <Play className="h-4 w-4 fill-current" />
+                <Play className="h-3.5 w-3.5 fill-current" />
                 See it in action
               </motion.button>
 
               <motion.div whileTap={whileTapButton}>
                 <Link
                   to="/contacts"
-                  className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:brightness-110"
+                  className="inline-flex items-center gap-2 rounded-[8px] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:brightness-105"
                   style={{ background: CORAL }}
                 >
                   Launch this campaign
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </motion.div>
             </div>
           </ScrollReveal>
 
           {/* Right Column Feature Card */}
-          <ScrollReveal direction="up" distance={20} className="lg:col-span-5">
-            <div className="relative overflow-hidden rounded-2xl border-2 border-slate-200 bg-linear-to-b from-white to-slate-50 p-6 sm:p-8 shadow-editorial transition-all duration-300 hover:border-slate-300">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-[#FF5E3A] via-[#A8E10C] to-[#14171A]" />
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <ScrollReveal direction="up" distance={14} className="lg:col-span-5">
+            <div className="relative overflow-hidden rounded-[12px] border border-[#E4E7E9] bg-white p-6 sm:p-7 shadow-card">
+              <div className="flex items-center justify-between border-b border-[#E4E7E9] pb-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6470]">
                   Interactive Demo Preview
                 </span>
-                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700">
+                <span className="rounded-[4px] bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
                   Ready to test
                 </span>
               </div>
 
-              <h2 className="mt-4 font-display text-xl font-bold text-slate-900">
+              <h2 className="mt-4 font-display text-lg font-semibold text-[#14171A]">
                 Experience the {campaign.label} Mechanic
               </h2>
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-1.5 text-xs text-[#5B6470] leading-relaxed">
                 Click below to launch an interactive simulation of how your consumers will
                 experience this promotional mechanic in real time.
               </p>
 
-              <div className="mt-6 border-t border-slate-200 pt-6">
+              <div className="mt-5 border-t border-[#E4E7E9] pt-4">
                 <motion.button
                   type="button"
                   whileTap={whileTapButton}
                   onClick={() => setDemoOpen(true)}
-                  className="w-full inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-slate-300 bg-white py-3.5 text-sm font-bold text-slate-900 shadow-xs transition-all hover:bg-slate-50 hover:border-slate-400"
+                  className="w-full inline-flex cursor-pointer items-center justify-center gap-2 rounded-[8px] border border-[#E4E7E9] bg-[#F7F8F5] py-3 text-xs font-bold uppercase tracking-wider text-[#14171A] shadow-xs transition-all hover:bg-white hover:border-[#CBD0D6]"
                 >
-                  <Sparkles className="h-4 w-4" style={{ color: CORAL }} />
+                  <Sparkles className="h-3.5 w-3.5" style={{ color: CORAL }} />
                   Launch Interactive Simulator
                 </motion.button>
               </div>
@@ -147,26 +146,26 @@ function InteractiveCampaignPage() {
         </div>
 
         {/* Mechanics and Channel Details */}
-        <div className="mt-16 grid gap-8 md:grid-cols-2">
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           {/* Key Capabilities */}
           <ScrollReveal
             direction="up"
-            distance={16}
-            className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-editorial transition-all duration-300 hover:border-slate-300"
+            distance={12}
+            className="rounded-[12px] border border-[#E4E7E9] bg-white p-6 sm:p-7 shadow-xs"
           >
-            <h2 className="font-display text-lg font-bold tracking-tight text-slate-900">
+            <h2 className="font-display text-base font-semibold tracking-tight text-[#14171A]">
               Key Mechanics &amp; Capabilities
             </h2>
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-5 space-y-3">
               {campaign.points.map((point) => (
-                <li key={point} className="flex items-start gap-3">
+                <li key={point} className="flex items-start gap-2.5">
                   <span
-                    className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full"
+                    className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-[4px]"
                     style={{ background: `${LIME}4D` }}
                   >
-                    <CheckCircle2 className="h-3.5 w-3.5 text-slate-900" />
+                    <CheckCircle2 className="h-3 w-3 text-[#14171A]" />
                   </span>
-                  <span className="text-sm font-medium text-slate-700 leading-snug">{point}</span>
+                  <span className="text-xs font-medium text-[#14171A] leading-snug">{point}</span>
                 </li>
               ))}
             </ul>
@@ -175,23 +174,23 @@ function InteractiveCampaignPage() {
           {/* Omnichannel Deployment */}
           <ScrollReveal
             direction="up"
-            distance={16}
-            className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs"
+            distance={12}
+            className="rounded-[12px] border border-[#E4E7E9] bg-white p-6 sm:p-7 shadow-xs"
           >
-            <h2 className="font-display text-lg font-bold tracking-tight text-slate-900">
+            <h2 className="font-display text-base font-semibold tracking-tight text-[#14171A]">
               Omnichannel Deployment
             </h2>
-            <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+            <p className="mt-1.5 text-xs text-[#5B6470] leading-relaxed">
               Deploy this mechanic across the touchpoints that best suit your target market and
               connectivity requirements.
             </p>
-            <div className="mt-6">
+            <div className="mt-5">
               <ChannelChips />
             </div>
 
-            <div className="mt-6 border-t border-slate-100 pt-6 flex items-start gap-3">
-              <ShieldCheck className="h-5 w-5 shrink-0" style={{ color: CORAL }} />
-              <p className="text-xs text-slate-500 leading-relaxed">
+            <div className="mt-5 border-t border-[#E4E7E9] pt-4 flex items-start gap-2.5">
+              <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5" style={{ color: CORAL }} />
+              <p className="text-xs text-[#5B6470] leading-relaxed">
                 Backed by real-time Winning Code Iteration (WCI) cryptographic allocation to ensure
                 100% fraud-proof execution.
               </p>
@@ -202,18 +201,18 @@ function InteractiveCampaignPage() {
         {/* Fraud Elimination & Winner Allocation Banner */}
         <ScrollReveal
           direction="up"
-          distance={18}
-          className="mt-12 flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-slate-900 p-8 sm:p-10 text-white"
+          distance={14}
+          className="mt-10 flex flex-wrap items-center justify-between gap-6 rounded-[12px] bg-[#14171A] p-7 sm:p-9 text-white shadow-panel"
         >
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400">
-              <Trophy className="h-4 w-4" style={{ color: LIME }} />
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              <Trophy className="h-3.5 w-3.5" style={{ color: LIME }} />
               <span>Fraud-Proof Architecture</span>
             </div>
-            <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            <h2 className="mt-2 font-display text-xl sm:text-2xl font-semibold tracking-tight text-white">
               Winning Code Iteration Engine
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-300">
+            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
               Winning entries are allocated dynamically across real-time intervals. No physical code
               is ever pre-marked as winning, eliminating insider theft and supply-chain code leaks.
             </p>
@@ -222,42 +221,42 @@ function InteractiveCampaignPage() {
           <motion.div whileTap={whileTapButton}>
             <Link
               to="/contacts"
-              className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold text-white shadow-lg transition-all hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-[8px] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:brightness-105"
               style={{ background: CORAL }}
             >
               Talk to our team
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </motion.div>
         </ScrollReveal>
 
         {/* Other Mechanics Grid */}
-        <div className="mt-20">
-          <ScrollReveal direction="up" distance={14}>
+        <div className="mt-14">
+          <ScrollReveal direction="up" distance={12}>
             <div className="flex items-center justify-between">
               <div>
                 <Eyebrow>More Mechanics</Eyebrow>
-                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-slate-900">
+                <h2 className="mt-2 font-display text-xl sm:text-2xl font-semibold tracking-tight text-[#14171A]">
                   Explore other interactive campaign mechanics
                 </h2>
               </div>
               <Link
                 to="/interactive-campaigns"
-                className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold"
+                className="hidden sm:inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider transition-colors hover:brightness-110"
                 style={{ color: CORAL }}
               >
                 View all
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           </ScrollReveal>
 
           <ScrollStaggerContainer
-            staggerDelay={0.06}
-            className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            staggerDelay={0.05}
+            className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {others.slice(0, 3).map((c) => (
-              <ScrollStaggerItem key={c.slug} distance={16}>
+              <ScrollStaggerItem key={c.slug} distance={12}>
                 <CampaignCard campaign={c} />
               </ScrollStaggerItem>
             ))}

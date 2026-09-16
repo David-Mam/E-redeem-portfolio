@@ -203,7 +203,7 @@ export function ClientRaffleWheelView({
                 value={userUnderCrownCode}
                 onChange={(e) => setUserUnderCrownCode(e.target.value.toUpperCase())}
                 placeholder="Enter crown code"
-                className="w-full px-4 py-3 rounded-xl border text-sm font-mono font-bold tracking-wider uppercase focus:outline-none"
+                className="w-full px-4 py-3 rounded-xl border text-sm tabular-nums font-bold tracking-wider uppercase focus:outline-none"
                 style={{
                   backgroundColor: theme.background,
                   borderColor: theme.border,

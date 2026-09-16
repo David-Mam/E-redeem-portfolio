@@ -49,43 +49,43 @@ function ClientCampaignsIndex() {
         {/* Header section */}
         <ScrollReveal
           direction="up"
-          distance={16}
+          distance={12}
           className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
         >
           <div className="max-w-3xl">
             <Eyebrow>Client Deployments</Eyebrow>
-            <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#14171A]">
+            <h1 className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#14171A]">
               Live Campaigns
             </h1>
-            <p className="mt-4 text-base sm:text-lg leading-relaxed text-[#5B6470]">
+            <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#5B6470]">
               Explore live, fraud-proof consumer promotions built for leading brands — powered by
               E-Redeem's Gen-AI Winning Code Iteration (WCI) engine.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 rounded-[12px] border border-[#E4E7E9] bg-white p-4">
+          <div className="flex flex-wrap items-center gap-3 rounded-[12px] border border-[#E4E7E9] bg-white p-4 shadow-xs">
             <div className="flex items-center gap-2.5 pr-4 border-r border-[#E4E7E9]">
               <span
-                className="grid h-8 w-8 place-items-center rounded-[8px]"
+                className="grid h-8 w-8 place-items-center rounded-[6px]"
                 style={{ background: `${LIME}33` }}
               >
                 <ShieldCheck className="h-4 w-4 text-[#14171A]" />
               </span>
               <div>
                 <div className="text-xs font-bold text-[#14171A]">100% Fraud-Proof</div>
-                <div className="text-[11px] text-[#5B6470]">WCI Cryptographic Engine</div>
+                <div className="text-[11px] font-medium text-[#5B6470]">WCI Cryptographic Engine</div>
               </div>
             </div>
             <div className="flex items-center gap-2.5 pl-2">
               <span
-                className="grid h-8 w-8 place-items-center rounded-[8px]"
-                style={{ background: `${CORAL}1A` }}
+                className="grid h-8 w-8 place-items-center rounded-[6px]"
+                style={{ background: `${CORAL}14` }}
               >
                 <Trophy className="h-4 w-4" style={{ color: CORAL }} />
               </span>
               <div>
                 <div className="text-xs font-bold text-[#14171A]">₦250M+ Dispatched</div>
-                <div className="text-[11px] text-[#5B6470]">Instant Automated Payouts</div>
+                <div className="text-[11px] font-medium text-[#5B6470]">Instant Automated Payouts</div>
               </div>
             </div>
           </div>
@@ -94,9 +94,9 @@ function ClientCampaignsIndex() {
         {/* Filter chips */}
         <ScrollReveal
           direction="up"
-          distance={10}
-          delay={0.05}
-          className="mt-8 flex flex-wrap items-center gap-2 border-b border-[#E4E7E9] pb-6"
+          distance={8}
+          delay={0.04}
+          className="mt-8 flex flex-wrap items-center gap-2 border-b border-[#E4E7E9] pb-5"
         >
           {MECHANIC_FILTERS.map((tab) => {
             const isActive = filter === tab.id;
@@ -105,9 +105,9 @@ function ClientCampaignsIndex() {
                 key={tab.id}
                 type="button"
                 onClick={() => setFilter(tab.id)}
-                className={`rounded-[8px] px-4 py-2 text-xs font-semibold transition-colors cursor-pointer ${
+                className={`rounded-[6px] px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
                   isActive
-                    ? "bg-[#FF5E3A] text-white shadow-sm"
+                    ? "bg-[#FF5E3A] text-white shadow-xs"
                     : "bg-white border border-[#E4E7E9] text-[#5B6470] hover:text-[#14171A] hover:bg-[#F7F8F5]"
                 }`}
               >
@@ -124,14 +124,14 @@ function ClientCampaignsIndex() {
               className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#E4E7E9] border-t-transparent"
               style={{ borderTopColor: CORAL }}
             />
-            <p className="mt-4 text-sm font-medium text-[#5B6470]">Loading client campaigns...</p>
+            <p className="mt-4 text-xs font-bold uppercase tracking-wider text-[#5B6470]">Loading client campaigns...</p>
           </div>
         )}
 
         {/* Error state */}
         {error && (
           <div className="my-10 rounded-[12px] border border-[#D64545]/30 bg-[#D64545]/10 p-6 text-center text-[#D64545]">
-            <p className="text-sm font-medium">Failed to load campaigns. Please try again.</p>
+            <p className="text-sm font-semibold">Failed to load campaigns. Please try again.</p>
           </div>
         )}
 
@@ -140,16 +140,16 @@ function ClientCampaignsIndex() {
           filteredCampaigns.length > 0 ? (
             <ScrollStaggerContainer
               key={filter}
-              staggerDelay={0.07}
-              className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              staggerDelay={0.05}
+              className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
             >
               {filteredCampaigns.map((c) => {
                 return (
-                  <ScrollStaggerItem key={c.id} distance={16}>
+                  <ScrollStaggerItem key={c.id} distance={12}>
                     <Link
                       to="/campaigns/$slug"
                       params={{ slug: c.slug }}
-                      className="group flex h-full flex-col justify-between rounded-[12px] border border-[#E4E7E9] bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#CBD0D5] hover:shadow-md"
+                      className="group flex h-full flex-col justify-between rounded-[12px] border border-[#E4E7E9] bg-white p-6 transition-all duration-200 hover:border-[#CBD0D6] hover:shadow-card hover:-translate-y-0.5"
                     >
                       <div>
                         {/* Top row with client badge & status */}
@@ -158,14 +158,14 @@ function ClientCampaignsIndex() {
                             <span className="rounded-[4px] bg-[#14171A] px-2 py-0.5 text-[11px] font-bold text-white uppercase tracking-wider">
                               {c.logoText}
                             </span>
-                            <span className="text-xs font-semibold text-[#5B6470]">
+                            <span className="text-xs font-bold text-[#5B6470]">
                               {c.clientName}
                             </span>
                           </div>
 
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E4E7E9] bg-[#F7F8F5] px-2.5 py-0.5 text-[11px] font-semibold text-[#14171A]">
+                          <span className="inline-flex items-center gap-1.5 rounded-[4px] border border-[#E4E7E9] bg-[#F7F8F5] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#14171A]">
                             <span
-                              className="h-2 w-2 rounded-full"
+                              className="h-1.5 w-1.5 rounded-full"
                               style={{ backgroundColor: LIME }}
                             />
                             {c.status}
@@ -173,7 +173,7 @@ function ClientCampaignsIndex() {
                         </div>
 
                         {/* Campaign title & headline */}
-                        <h3 className="mt-4 text-lg font-bold tracking-tight text-[#14171A] group-hover:text-[#FF5E3A] transition-colors">
+                        <h3 className="mt-4 font-display text-base font-semibold tracking-tight text-[#14171A] group-hover:text-[#FF5E3A] transition-colors">
                           {c.campaignName}
                         </h3>
                         <p className="mt-2 text-sm leading-relaxed text-[#5B6470] line-clamp-2">
@@ -181,11 +181,11 @@ function ClientCampaignsIndex() {
                         </p>
 
                         {/* Reward callout pill */}
-                        <div className="mt-4 rounded-[8px] border border-[#E4E7E9] bg-[#F7F8F5] p-3">
-                          <div className="text-[10px] font-semibold uppercase tracking-wider text-[#5B6470]">
+                        <div className="mt-4 rounded-[6px] border border-[#E4E7E9] bg-[#F7F8F5] p-3">
+                          <div className="text-[10px] font-bold uppercase tracking-wider text-[#5B6470]">
                             Reward Pool
                           </div>
-                          <div className="mt-0.5 text-xs font-bold text-[#14171A]">
+                          <div className="mt-0.5 font-display text-xs font-semibold text-[#14171A]">
                             {c.rewardSummary}
                           </div>
                         </div>
@@ -199,7 +199,7 @@ function ClientCampaignsIndex() {
                             {c.participantsCount} entries
                           </span>
                           <span
-                            className="inline-flex items-center gap-1 font-semibold transition-transform group-hover:translate-x-1"
+                            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider transition-colors group-hover:brightness-110"
                             style={{ color: CORAL }}
                           >
                             Launch Client Page
@@ -214,7 +214,7 @@ function ClientCampaignsIndex() {
             </ScrollStaggerContainer>
           ) : (
             <div className="my-12 rounded-[12px] border border-[#E4E7E9] bg-white p-10 text-center">
-              <p className="text-sm font-semibold text-[#14171A]">
+              <p className="text-sm font-bold text-[#14171A]">
                 No campaigns found in this category
               </p>
               <p className="mt-1 text-xs text-[#5B6470]">
@@ -223,7 +223,7 @@ function ClientCampaignsIndex() {
               <button
                 type="button"
                 onClick={() => setFilter("all")}
-                className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-[8px] bg-[#FF5E3A] px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:brightness-110"
+                className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-[8px] bg-[#FF5E3A] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:brightness-105"
               >
                 View All Campaigns
               </button>
@@ -234,15 +234,15 @@ function ClientCampaignsIndex() {
         {/* Bottom CTA to build custom client campaign */}
         <ScrollReveal
           direction="up"
-          distance={18}
-          className="mt-16 rounded-[12px] bg-[#14171A] p-8 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg"
+          distance={14}
+          className="mt-16 rounded-[12px] bg-[#14171A] p-8 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-panel"
         >
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+            <div className="inline-flex items-center gap-2 rounded-[4px] bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
               <Sparkles className="h-3.5 w-3.5" style={{ color: LIME }} />
               Bespoke Enterprise Deployments
             </div>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <h2 className="mt-3 font-display text-2xl sm:text-3xl font-semibold tracking-tight text-white">
               Ready to launch a custom branded campaign?
             </h2>
             <p className="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
@@ -254,15 +254,15 @@ function ClientCampaignsIndex() {
           <div className="flex flex-wrap gap-3 shrink-0">
             <Link
               to="/contacts"
-              className="inline-flex items-center gap-2 rounded-[8px] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-[8px] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:brightness-105"
               style={{ background: CORAL }}
             >
               Request Custom Demo
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/interactive-campaigns"
-              className="inline-flex items-center gap-2 rounded-[8px] border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/15"
+              className="inline-flex items-center gap-2 rounded-[8px] border border-white/20 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-white/15"
             >
               Explore Mechanics
             </Link>

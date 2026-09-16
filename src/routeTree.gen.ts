@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as UseCasesRouteImport } from './routes/use-cases'
 import { Route as CampaignsIndexRouteImport } from './routes/campaigns/index'
 import { Route as CampaignsSlugRouteImport } from './routes/campaigns/$slug'
@@ -37,6 +39,16 @@ const CaseStudiesRoute = CaseStudiesRouteImport.update({
 const ContactsRoute = ContactsRouteImport.update({
   id: '/contacts',
   path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UseCasesRoute = UseCasesRouteImport.update({
@@ -102,6 +114,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contacts': typeof ContactsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/use-cases': typeof UseCasesRoute
   '/campaigns/$slug': typeof CampaignsSlugRouteWithChildren
   '/interactive-campaigns/$campaign': typeof InteractiveCampaignsCampaignRoute
@@ -118,6 +132,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contacts': typeof ContactsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/use-cases': typeof UseCasesRoute
   '/interactive-campaigns/$campaign': typeof InteractiveCampaignsCampaignRoute
   '/campaigns': typeof CampaignsIndexRoute
@@ -134,6 +150,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contacts': typeof ContactsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/use-cases': typeof UseCasesRoute
   '/campaigns/$slug': typeof CampaignsSlugRouteWithChildren
   '/interactive-campaigns/$campaign': typeof InteractiveCampaignsCampaignRoute
@@ -152,6 +170,8 @@ export interface FileRouteTypes {
     | '/'
     | '/case-studies'
     | '/contacts'
+    | '/privacy-policy'
+    | '/terms-of-service'
     | '/use-cases'
     | '/campaigns/$slug'
     | '/interactive-campaigns/$campaign'
@@ -168,6 +188,8 @@ export interface FileRouteTypes {
     | '/'
     | '/case-studies'
     | '/contacts'
+    | '/privacy-policy'
+    | '/terms-of-service'
     | '/use-cases'
     | '/interactive-campaigns/$campaign'
     | '/campaigns'
@@ -183,6 +205,8 @@ export interface FileRouteTypes {
     | '/'
     | '/case-studies'
     | '/contacts'
+    | '/privacy-policy'
+    | '/terms-of-service'
     | '/use-cases'
     | '/campaigns/$slug'
     | '/interactive-campaigns/$campaign'
@@ -200,6 +224,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaseStudiesRoute: typeof CaseStudiesRoute
   ContactsRoute: typeof ContactsRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
   UseCasesRoute: typeof UseCasesRoute
   CampaignsSlugRoute: typeof CampaignsSlugRouteWithChildren
   InteractiveCampaignsCampaignRoute: typeof InteractiveCampaignsCampaignRoute
@@ -228,6 +254,20 @@ declare module '@tanstack/react-router' {
       path: '/contacts'
       fullPath: '/contacts'
       preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/use-cases': {
@@ -336,6 +376,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaseStudiesRoute: CaseStudiesRoute,
   ContactsRoute: ContactsRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
   UseCasesRoute: UseCasesRoute,
   CampaignsSlugRoute: CampaignsSlugRouteWithChildren,
   InteractiveCampaignsCampaignRoute: InteractiveCampaignsCampaignRoute,

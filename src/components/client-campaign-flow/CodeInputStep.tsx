@@ -87,7 +87,7 @@ export function CodeInputStep({ campaign, initialCode = "", onSuccess }: CodeInp
                 if (error) setError(null);
               }}
               placeholder="e.g. MLO-2024-XXXX"
-              className="w-full rounded-[4px] border px-4 py-3 font-mono text-base font-semibold uppercase tracking-wider transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF5E3A]"
+              className="w-full rounded-[4px] border px-4 py-3 tabular-nums text-base font-semibold uppercase tracking-wider transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF5E3A]"
               style={{
                 backgroundColor: theme.cardBg || "#FFFFFF",
                 borderColor: error ? "#D64545" : theme.border || "#E4E7E9",

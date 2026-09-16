@@ -6,28 +6,32 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * E-Redeem Brand System & UX Design System definition (Authoritative Style Scape Specification).
+ * =========================================================================
+ * E-Redeem B2B Enterprise Design System Specification
+ * =========================================================================
+ * Authoritative color tokens, typographic hierarchy, and structural rules.
  *
  * Section 1: Color Tokens
- * - Coral (Primary Action): #FF5E3A
- * - Lime (Accent Only - Never large fill or primary CTA): #A8E10C
- * - Ink (Primary Text & Dark Surfaces): #14171A
- * - Slate (Secondary Text): #5B6470
+ * - Coral (Primary Action / CTAs): #FF5E3A
+ * - Lime (Accent Only — Live indicators, badges, highlights): #A8E10C
+ * - Ink (Primary Text & Enterprise Dark Surfaces): #14171A
+ * - Slate (Secondary Text / Metadata): #5B6470
  * - Page Background: #F7F8F5
  * - Surface / Card Background: #FFFFFF
- * - Border / Divider: #E4E7E9
+ * - Border / Structural Divider: #E4E7E9
  * - Error: #D64545
  *
  * Section 2: Typography
- * - Display / Headlines / Stats: Space Grotesk
- * - Body / Forms / UI: Inter
+ * - Display / Headlines / Stats / KPIs: 'Space Grotesk'
+ * - Body / Forms / UI / Telemetry: 'Inter'
  *
- * Section 3 & 4: Spacing (8px scale) & Corner Radius Scale
- * - Input / Tag: 4px
- * - Button: 8px
- * - Card: 12px
- * - Modal: 20px
- * - Avatar / Icon: Full (9999px)
+ * Section 3: Enterprise Radius Scale (Strictly Enforced)
+ * - Input / Tag / Micro-Chip: 4px
+ * - Button / Interactive Action: 8px
+ * - Card / Bento / Container: 12px
+ * - Modal / Large Dialog: 20px
+ * - Avatar / Status Indicator: 9999px (Full pill)
+ * =========================================================================
  */
 
 @theme inline {
@@ -35,6 +39,7 @@
   --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-headline: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --radius-input: 4px;
   --radius-button: 8px;
@@ -113,11 +118,11 @@
   --coral: #FF5E3A;
   --muted-ink: #5B6470;
 
-  --motion-fast: 150ms;
-  --motion-standard: 250ms;
-  --motion-slow: 400ms;
-  --easing-entrance: cubic-bezier(0, 0, 0.2, 1);
-  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-fast: 120ms;
+  --motion-standard: 220ms;
+  --motion-slow: 380ms;
+  --easing-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --easing-exit: cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 .dark {
@@ -154,37 +159,38 @@
     font-family: var(--font-sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, .font-display, .font-headline {
+  h1, h2, h3, h4, .font-display, .font-headline {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     font-weight: 600;
   }
 
   h1 {
-    font-size: 34px;
+    font-size: 2.25rem;
     line-height: 1.15;
   }
 
   h2 {
-    font-size: 24px;
-    line-height: 1.2;
+    font-size: 1.5rem;
+    line-height: 1.25;
   }
 
   h3 {
-    font-size: 18px;
-    line-height: 1.3;
+    font-size: 1.125rem;
+    line-height: 1.35;
   }
 }
 
 /* ------------------------------------------------------------------------- *
- * e-redeem campaign modals — token aliases.
+ * Campaign modals — token aliases.
  * Maps onto exact Style Scape color and typography definitions.
  * ------------------------------------------------------------------------- */
 @theme inline {
   --color-r-signal: var(--primary); /* coral #FF5E3A — buttons, rings, selected state */
-  --color-r-signal-dark: #E04E2C; /* primary button hover/active (8-10% darker) */
+  --color-r-signal-dark: #E04E2C; /* primary button hover/active */
   --color-r-signal-tint: #FFF2EE; /* pale coral — hover/selected fills */
   --color-r-reward: var(--accent); /* lime #A8E10C */
   --color-r-win: #A8E10C; /* lime accent for reward win */
@@ -202,6 +208,12 @@
   font-weight: 600;
 }
 
+/* Inter tabular figures — replaces font-mono for codes, phone numbers, monetary values */
+.font-tabular {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Wheel chrome */
 .raffle-wheel-wrap {
   --raffle-ring-color: #14171A;
@@ -212,7 +224,7 @@
 }
 
 /* ------------------------------------------------------------------------- *
- * Foundations & Visual Ambience Tokens
+ * Foundations, Enterprise Data Grids & Elevation Tokens
  * ------------------------------------------------------------------------- */
 
 .bg-dot-grid {
@@ -225,29 +237,86 @@
   background-size: 24px 24px;
 }
 
+.bg-enterprise-grid {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(20, 23, 26, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 23, 26, 0.04) 1px, transparent 1px);
+}
+
+.bg-enterprise-grid-dark {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* Enterprise Shadow Hierarchy */
+.shadow-subtle {
+  box-shadow: 0 1px 2px 0 rgba(20, 23, 26, 0.04);
+}
+
+.shadow-card {
+  box-shadow: 0 1px 3px 0 rgba(20, 23, 26, 0.05), 0 1px 2px -1px rgba(20, 23, 26, 0.03);
+}
+
 .shadow-editorial {
-  box-shadow: 0 1px 2px rgba(20, 23, 26, 0.04), 0 8px 24px -4px rgba(20, 23, 26, 0.06), 0 20px 48px -12px rgba(20, 23, 26, 0.08);
+  box-shadow: 0 1px 3px 0 rgba(20, 23, 26, 0.05), 0 8px 24px -4px rgba(20, 23, 26, 0.06);
+}
+
+.shadow-panel {
+  box-shadow: 0 4px 6px -1px rgba(20, 23, 26, 0.05), 0 12px 32px -4px rgba(20, 23, 26, 0.08);
 }
 
 .shadow-glow-coral {
-  box-shadow: 0 0 32px -4px rgba(255, 94, 58, 0.24);
+  box-shadow: 0 0 24px -4px rgba(255, 94, 58, 0.22);
 }
 
 .shadow-glow-lime {
-  box-shadow: 0 0 32px -4px rgba(168, 225, 12, 0.28);
+  box-shadow: 0 0 24px -4px rgba(168, 225, 12, 0.24);
+}
+
+/* Enterprise Bento & Card Containers */
+.b2b-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E7E9;
+  border-radius: 12px;
+  transition: border-color 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.b2b-card:hover {
+  border-color: #CBD0D6;
+  box-shadow: 0 6px 20px -4px rgba(20, 23, 26, 0.07);
+  transform: translateY(-2px);
 }
 
 .bento-card {
   background-color: #FFFFFF;
   border: 1px solid #E4E7E9;
-  border-radius: 16px;
-  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 12px;
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bento-card:hover {
   border-color: #CBD0D6;
-  box-shadow: 0 12px 36px -8px rgba(20, 23, 26, 0.08);
+  box-shadow: 0 8px 24px -4px rgba(20, 23, 26, 0.07);
   transform: translateY(-2px);
+}
+
+/* Live Telemetry Pill */
+.telemetry-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.1875rem 0.625rem;
+  border-radius: 9999px;
+  border: 1px solid #E4E7E9;
+  background-color: #FFFFFF;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #14171A;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -268,4 +337,3 @@
     transform: translate(-50%, 0);
   }
 }
-

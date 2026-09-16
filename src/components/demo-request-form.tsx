@@ -45,18 +45,18 @@ export function DemoRequestForm({
   const prefix = idPrefix ? `${idPrefix}-` : "";
 
   return submitted ? (
-    <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 text-center shadow-xs">
-      <p className="font-display text-xl font-semibold text-slate-900">Thank you — your request is in.</p>
-      <p className="mt-3 text-base text-slate-600">We’ll be in touch soon to schedule your demo.</p>
+    <div className="rounded-[12px] border border-[#E4E7E9] bg-[#F7F8F5] p-6 sm:p-8 text-center shadow-xs">
+      <p className="font-display text-xl font-semibold text-[#14171A]">Thank you — your request is in.</p>
+      <p className="mt-2 text-sm text-[#5B6470]">We’ll be in touch soon to schedule your demo.</p>
     </div>
   ) : (
     <form
-      className="mt-8 sm:mt-10 grid gap-6 sm:gap-8 rounded-xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm"
+      className="mt-6 sm:mt-8 grid gap-5 sm:gap-6 rounded-[12px] border border-[#E4E7E9] bg-white p-5 sm:p-7 shadow-xs"
       onSubmit={onSubmit}
     >
-      <div className="grid gap-5 sm:gap-6 sm:grid-cols-2">
-        <div className="space-y-2.5">
-          <Label htmlFor={`${prefix}demo-name`} className="text-sm sm:text-base font-semibold text-slate-900">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor={`${prefix}demo-name`} className="text-xs font-bold uppercase tracking-wider text-[#14171A]">
             Name
           </Label>
           <Input
@@ -65,12 +65,12 @@ export function DemoRequestForm({
             value={formValues.name}
             onChange={onChange}
             placeholder="Your name"
-            className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-12 px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
+            className="rounded-[4px] border-[#E4E7E9] bg-[#F7F8F5] text-[#14171A] placeholder:text-[#5B6470]/60 text-sm h-11 px-3.5 shadow-xs transition focus:border-[#FF5E3A] focus:ring-1 focus:ring-[#FF5E3A] focus:bg-white"
             required
           />
         </div>
-        <div className="space-y-2.5">
-          <Label htmlFor={`${prefix}demo-email`} className="text-sm sm:text-base font-semibold text-slate-900">
+        <div className="space-y-2">
+          <Label htmlFor={`${prefix}demo-email`} className="text-xs font-bold uppercase tracking-wider text-[#14171A]">
             Email
           </Label>
           <Input
@@ -80,14 +80,14 @@ export function DemoRequestForm({
             value={formValues.email}
             onChange={onChange}
             placeholder="name@example.com"
-            className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-12 px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
+            className="rounded-[4px] border-[#E4E7E9] bg-[#F7F8F5] text-[#14171A] placeholder:text-[#5B6470]/60 text-sm h-11 px-3.5 shadow-xs transition focus:border-[#FF5E3A] focus:ring-1 focus:ring-[#FF5E3A] focus:bg-white"
             required
           />
         </div>
       </div>
 
-      <div className="space-y-2.5 sm:col-span-2">
-        <Label htmlFor={`${prefix}demo-company`} className="text-sm sm:text-base font-semibold text-slate-900">
+      <div className="space-y-2 sm:col-span-2">
+        <Label htmlFor={`${prefix}demo-company`} className="text-xs font-bold uppercase tracking-wider text-[#14171A]">
           Company
         </Label>
         <Input
@@ -96,12 +96,12 @@ export function DemoRequestForm({
           value={formValues.company}
           onChange={onChange}
           placeholder="Company name"
-          className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base h-12 px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
+          className="rounded-[4px] border-[#E4E7E9] bg-[#F7F8F5] text-[#14171A] placeholder:text-[#5B6470]/60 text-sm h-11 px-3.5 shadow-xs transition focus:border-[#FF5E3A] focus:ring-1 focus:ring-[#FF5E3A] focus:bg-white"
         />
       </div>
 
-      <div className="space-y-2.5">
-        <Label htmlFor={`${prefix}demo-message`} className="text-sm sm:text-base font-semibold text-slate-900">
+      <div className="space-y-2">
+        <Label htmlFor={`${prefix}demo-message`} className="text-xs font-bold uppercase tracking-wider text-[#14171A]">
           What are you looking for?
         </Label>
         <Textarea
@@ -110,17 +110,17 @@ export function DemoRequestForm({
           value={formValues.message}
           onChange={onChange}
           placeholder="Tell us about your goals or challenges"
-          rows={5}
-          className="rounded-md border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 text-base min-h-[120px] px-4 py-3 shadow-xs transition focus:border-[#FF5E3A] focus:ring-2 focus:ring-[#FF5E3A]/20"
+          rows={4}
+          className="rounded-[4px] border-[#E4E7E9] bg-[#F7F8F5] text-[#14171A] placeholder:text-[#5B6470]/60 text-sm min-h-[100px] p-3.5 shadow-xs transition focus:border-[#FF5E3A] focus:ring-1 focus:ring-[#FF5E3A] focus:bg-white leading-relaxed"
         />
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pt-2">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end pt-2 border-t border-[#E4E7E9]">
         <div className="flex flex-col sm:flex-row gap-3 sm:items-center w-full sm:w-auto">
           {showCancel && onCancel ? (
             <button
               type="button"
-              className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-md border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 cursor-pointer"
+              className="inline-flex h-10 w-full sm:w-auto items-center justify-center rounded-[8px] border border-[#E4E7E9] bg-white px-5 text-xs font-bold text-[#14171A] transition-colors hover:bg-[#F7F8F5] cursor-pointer uppercase tracking-wider"
               onClick={onCancel}
             >
               {cancelLabel}
@@ -128,7 +128,7 @@ export function DemoRequestForm({
           ) : null}
           <button
             type="submit"
-            className="inline-flex h-12 w-full sm:min-w-[10rem] items-center justify-center rounded-md px-6 text-sm font-semibold text-white shadow-sm transition-all hover:brightness-110 cursor-pointer"
+            className="inline-flex h-10 w-full sm:min-w-[10rem] items-center justify-center rounded-[8px] px-6 text-xs font-bold text-white shadow-xs transition-all hover:brightness-105 active:scale-[0.985] cursor-pointer uppercase tracking-wider"
             style={{ background: "#FF5E3A" }}
           >
             {ctaLabel}
