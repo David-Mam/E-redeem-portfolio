@@ -56,11 +56,18 @@ export interface VoteCandidateItem {
   imageText: string;
 }
 
-export interface SurveyStepItem {
+export interface SurveyOptionItem {
   id: number;
+  option: string;
+}
+
+export interface SurveyStepItem {
+  id: number | string;
   title: string;
   subtitle: string;
-  options: string[];
+  type?: string; // "text", "date", "image", "dropdown", "checkbox", "multiple-choice"
+  options?: string[]; // for mock data strings
+  apiOptions?: SurveyOptionItem[]; // for real DB options (contains ID)
 }
 
 export interface ClientCampaign {
@@ -641,19 +648,121 @@ export const clientCampaigns: ClientCampaign[] = [
 
 /* ---------------- Mock API Fetchers for TanStack Query ---------------- */
 
-/**
- * Simulates fetching all client showcase campaigns.
- * Uses a small mock delay (e.g. 50ms) to ensure TanStack Query state transitions work cleanly.
- */
-export async function fetchClientCampaigns(): Promise<ClientCampaign[]> {
-  await new Promise((resolve) => setTimeout(resolve, 60));
-  return clientCampaigns;
+function mapApiCampaignToClientCampaign(apiData: any): ClientCampaign {
+  // Determine mechanics
+  let mechanicType: ClientMechanicType = "short-code";
+  if (apiData.type === "quiz-campaign") mechanicType = "quiz";
+  else if (apiData.type === "poll-campaign") mechanicType = "poll";
+  else if (apiData.type === "survey-campaign") mechanicType = "survey";
+  else if (apiData.type === "raffle-campaign") mechanicType = "raffle";
+  else if (apiData.type === "vote-campaign") mechanicType = "vote";
+
+  const formType: CampaignFormType = apiData.engagement_type === "code-less" ? "codeless" : "code";
+
+  // Pick a random mock theme based on ID to make it look nice
+  const fallbackThemes = [
+    { primary: "#E11D48", secondary: "#F43F5E", logo: "ER" }, // red
+    { primary: "#16A34A", secondary: "#22C55E", logo: "MC" }, // green
+    { primary: "#0284C7", secondary: "#38BDF8", logo: "PP" }, // blue
+    { primary: "#D97706", secondary: "#F59E0B", logo: "IN" }, // yellow
+  ];
+  const themePreset = fallbackThemes[apiData.id % fallbackThemes.length];
+
+  // We need to inject mock data for quizzes/polls since the API doesn't have it yet.
+  // We can just grab the existing mock questions from the `clientCampaigns` array for the specific mechanic!
+  const mockTemplate = clientCampaigns.find(c => c.mechanicType === mechanicType) || clientCampaigns[0];
+
+  return {
+    id: String(apiData.id),
+    slug: apiData.slug,
+    clientName: "Brand Client", 
+    campaignName: apiData.title,
+    tagline: "Participate and win amazing rewards today!",
+    description: apiData.description || "Join this exciting interactive campaign.",
+    heroBadge: "LIVE NOW",
+    logoText: themePreset.logo,
+    logoAccentColor: themePreset.primary,
+    formType,
+    rewardType: "airtime",
+    mechanicType,
+    mechanicLabel: (apiData.type || "").replace("-campaign", "").replace("-and-win", "").toUpperCase(),
+    status: apiData.status === "published" ? "live" : "upcoming",
+    rewardSummary: "₦10,000 Airtime Pool",
+    rewardValue: "₦1,000",
+    rewardName: "Airtime",
+    participantsCount: String(apiData.total_entries || 0),
+    channelSupport: ["Web", "USSD"],
+    sampleValidCodes: ["A7B3K9M2", "G8T4K9M"],
+    theme: {
+      ...mockTemplate.theme,
+      primary: themePreset.primary,
+      secondary: themePreset.secondary,
+    },
+    points: mockTemplate.points,
+    terms: mockTemplate.terms,
+    quizData: mockTemplate.quizData,
+    wheelData: mockTemplate.wheelData,
+    pollData: mockTemplate.pollData,
+    voteData: mockTemplate.voteData,
+    surveyData: mockTemplate.surveyData,
+  };
 }
 
-/**
- * Simulates fetching a single client campaign by slug.
- */
+export async function fetchClientCampaigns(): Promise<ClientCampaign[]> {
+  try {
+    const res = await fetch("https://admin.e-redeem.com/api/get-campaigns");
+    if (!res.ok) throw new Error("Failed to fetch campaigns");
+    const json = await res.json();
+    const apiCampaigns = json.data?.campaigns || [];
+    
+    return apiCampaigns.map(mapApiCampaignToClientCampaign);
+  } catch (err) {
+    console.error("Error fetching live campaigns, falling back to mock", err);
+    return clientCampaigns;
+  }
+}
+
 export async function fetchClientCampaignBySlug(slug: string): Promise<ClientCampaign | undefined> {
-  await new Promise((resolve) => setTimeout(resolve, 60));
-  return clientCampaigns.find((c) => c.slug === slug);
+  const all = await fetchClientCampaigns();
+  const campaign = all.find((c) => c.slug === slug);
+  if (!campaign) return undefined;
+
+  try {
+    const res = await fetch(`https://admin.e-redeem.com/api/v1/campaigns/${campaign.id}/customization/show`);
+    if (res.ok) {
+      const json = await res.json();
+      const data = json.data;
+      
+      const questionsPath = data?.activity?.mechanicData?.questions || data?.activity?.mechanicData?.surveyData?.questions;
+      if (questionsPath) {
+        const apiQuestions = questionsPath;
+        const steps: SurveyStepItem[] = apiQuestions.map((q: any, i: number) => ({
+          id: q.id,
+          title: q.text,
+          subtitle: `Question ${i + 1} of ${apiQuestions.length}`,
+          type: q.type || "dropdown",
+          apiOptions: q.options || [],
+          options: (q.options || []).map((o: any) => o.option)
+        }));
+
+        if (campaign.mechanicType === "survey") {
+          campaign.surveyData = { ...campaign.surveyData, rewardVoucher: "LIVE-VOUCHER-99", steps };
+        } else if (campaign.mechanicType === "poll") {
+          campaign.surveyData = { rewardVoucher: "LIVE-POLL-99", steps };
+        } else if (campaign.mechanicType === "quiz") {
+          campaign.surveyData = { rewardVoucher: "LIVE-QUIZ-99", steps };
+        }
+      }
+      
+      // Override copy text if available
+      if (data?.copy) {
+        if (data.copy.campaignName) campaign.campaignName = data.copy.campaignName;
+        if (data.copy.short_desc) campaign.description = data.copy.short_desc;
+      }
+    }
+  } catch (err) {
+    console.error("Error fetching live campaign customization", err);
+  }
+
+  return campaign;
 }
