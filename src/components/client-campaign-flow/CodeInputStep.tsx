@@ -5,7 +5,7 @@ import type { ClientCampaign } from "@/lib/client-campaigns-data";
 interface CodeInputStepProps {
   campaign: ClientCampaign;
   initialCode?: string;
-  onSuccess: (code: string) => void;
+  onSuccess: (code: string) => Promise<void>;
   onFail?: (reason: string) => void;
 }
 
@@ -30,21 +30,17 @@ export function CodeInputStep({ campaign, initialCode = "", onSuccess }: CodeInp
     setIsVerifying(true);
     setError(null);
 
-    setTimeout(() => {
-      setIsVerifying(false);
-      if (cleanCode === "EXPIRED" || cleanCode === "INVALID" || cleanCode === "USED") {
-        setError(
-          `Code "${cleanCode}" is invalid, expired, or already used. Please check your pack and retry.`,
-        );
-        return;
-      }
-
+    try {
       if (cleanCode.length >= 4) {
-        onSuccess(cleanCode);
+        await onSuccess(cleanCode);
       } else {
         setError("Invalid code format. Codes must be at least 4 alphanumeric characters.");
       }
-    }, 400);
+    } catch (err: any) {
+      setError(err.message || "Failed to validate code.");
+    } finally {
+      setIsVerifying(false);
+    }
   };
 
   return (

@@ -19,15 +19,32 @@ export function ClientSurveyView({
   const steps: SurveyStepItem[] = surveyData?.steps || [];
 
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<string | number, any>>({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
 
   const currentQ = steps[currentStep];
-  const currentAnswer = answers[currentStep];
+  const qId = currentQ?.id;
+  const currentAnswer = answers[qId as string | number];
 
-  const handleSelect = (opt: string) => {
-    setAnswers((prev) => ({ ...prev, [currentStep]: opt }));
+  const handleSelect = (optId: string | number) => {
+    if (!qId) return;
+    if (currentQ?.type === "checkbox") {
+      const prevArr = Array.isArray(currentAnswer) ? currentAnswer : [];
+      if (prevArr.includes(optId)) {
+        setAnswers((prev) => ({ ...prev, [qId]: prevArr.filter((a) => a !== optId) }));
+      } else {
+        setAnswers((prev) => ({ ...prev, [qId]: [...prevArr, optId] }));
+      }
+    } else {
+      setAnswers((prev) => ({ ...prev, [qId]: optId }));
+    }
+  };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (qId) {
+      setAnswers((prev) => ({ ...prev, [qId]: e.target.value }));
+    }
   };
 
   const handleNext = () => {
@@ -70,6 +87,120 @@ export function ClientSurveyView({
     }
   };
 
+  const isNextDisabled = () => {
+    if (currentQ?.type === "checkbox") {
+      return !currentAnswer || currentAnswer.length === 0;
+    }
+    return !currentAnswer;
+  };
+
+  const renderInput = () => {
+    if (!currentQ) return null;
+    const type = currentQ.type || "dropdown";
+
+    if (type === "text") {
+      return (
+        <textarea
+          value={currentAnswer || ""}
+          onChange={handleTextChange}
+          placeholder="Type your answer here..."
+          className="w-full min-h-[120px] p-4 sm:p-5 rounded-2xl border transition-all resize-none focus:outline-none focus:ring-2"
+          style={{
+            backgroundColor: theme.cardBg,
+            borderColor: theme.border,
+            color: theme.text,
+            "--tw-ring-color": theme.secondary,
+          } as React.CSSProperties}
+        />
+      );
+    }
+
+    if (type === "date") {
+      return (
+        <input
+          type="date"
+          value={currentAnswer || ""}
+          onChange={handleTextChange}
+          className="w-full p-4 sm:p-5 rounded-2xl border transition-all focus:outline-none focus:ring-2"
+          style={{
+            backgroundColor: theme.cardBg,
+            borderColor: theme.border,
+            color: theme.text,
+            "--tw-ring-color": theme.secondary,
+          } as React.CSSProperties}
+        />
+      );
+    }
+
+    if (type === "image") {
+      return (
+        <div 
+          className="w-full p-8 rounded-2xl border border-dashed flex flex-col items-center justify-center text-center cursor-pointer"
+          style={{
+            backgroundColor: theme.cardBg,
+            borderColor: theme.border,
+            color: theme.textMuted,
+          }}
+          onClick={() => handleTextChange({ target: { value: "uploaded-image.png" } } as any)}
+        >
+          <Sparkles className="h-8 w-8 mb-3 opacity-50" />
+          <p className="font-semibold text-sm">Click to select an image</p>
+          <p className="text-xs opacity-70 mt-1">JPG, PNG (max 5MB)</p>
+          {currentAnswer && <p className="mt-3 text-emerald-400 text-xs font-bold font-mono border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded-full">✓ {currentAnswer}</p>}
+        </div>
+      );
+    }
+
+    // Default: dropdown, checkbox, multiple-choice
+    const opts = currentQ.apiOptions?.length 
+      ? currentQ.apiOptions 
+      : (currentQ.options || []).map((o: string) => ({ id: o, option: o }));
+
+    return (
+      <div className="space-y-3 pt-2">
+        {opts.map((optObj) => {
+          const optId = optObj.id;
+          const optLabel = optObj.option;
+          const isCheckbox = type === "checkbox";
+          const isSelected = isCheckbox 
+            ? (Array.isArray(currentAnswer) && currentAnswer.includes(optId))
+            : currentAnswer === optId;
+
+          return (
+            <button
+              key={optId}
+              type="button"
+              onClick={() => handleSelect(optId)}
+              className="w-full text-left p-4 sm:p-5 rounded-2xl border transition-all flex items-center justify-between group cursor-pointer"
+              style={{
+                backgroundColor: isSelected ? theme.primary : theme.cardBg,
+                borderColor: isSelected ? theme.secondary : theme.border,
+                color: isSelected ? "#FFFFFF" : theme.text,
+              }}
+            >
+              <span className="font-semibold text-sm sm:text-base pr-3">{optLabel}</span>
+              <div
+                className={`shrink-0 flex items-center justify-center border ${isCheckbox ? 'h-6 w-6 rounded-[6px]' : 'h-6 w-6 rounded-full'}`}
+                style={{ borderColor: isSelected ? theme.secondary : theme.border }}
+              >
+                {isSelected && (
+                  isCheckbox ? (
+                    <Check className="h-4 w-4" style={{ color: theme.secondary }} />
+                  ) : (
+                    <span
+                      className="h-3 w-3 rounded-full"
+                      style={{ backgroundColor: theme.secondary }}
+                    />
+                  )
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <div
       className="rounded-3xl p-6 sm:p-10 shadow-2xl border transition-all"
@@ -88,13 +219,13 @@ export function ClientSurveyView({
             className="inline-block px-3 py-1 text-xs font-black uppercase tracking-wider rounded-full"
             style={{ backgroundColor: theme.badgeBg, color: theme.badgeText }}
           >
-            Passenger Hospitality Survey
+            {campaign.campaignName}
           </span>
           <h3
             className="mt-2 text-xl sm:text-2xl font-black tracking-tight"
             style={{ color: theme.text }}
           >
-            {isCompleted ? "Survey Completed — Flight Voucher Unlocked" : currentQ?.title}
+            {isCompleted ? "Completed — Reward Unlocked" : currentQ?.title}
           </h3>
         </div>
         <div
@@ -134,37 +265,7 @@ export function ClientSurveyView({
             />
           </div>
 
-          <div className="space-y-3 pt-2">
-            {currentQ.options.map((opt) => {
-              const isSelected = currentAnswer === opt;
-              return (
-                <button
-                  key={opt}
-                  type="button"
-                  onClick={() => handleSelect(opt)}
-                  className="w-full text-left p-4 sm:p-5 rounded-2xl border transition-all flex items-center justify-between group cursor-pointer"
-                  style={{
-                    backgroundColor: isSelected ? theme.primary : theme.cardBg,
-                    borderColor: isSelected ? theme.secondary : theme.border,
-                    color: isSelected ? "#FFFFFF" : theme.text,
-                  }}
-                >
-                  <span className="font-semibold text-sm sm:text-base pr-3">{opt}</span>
-                  <div
-                    className="shrink-0 h-6 w-6 rounded-full border flex items-center justify-center"
-                    style={{ borderColor: isSelected ? theme.secondary : theme.border }}
-                  >
-                    {isSelected && (
-                      <span
-                        className="h-3 w-3 rounded-full"
-                        style={{ backgroundColor: theme.secondary }}
-                      />
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+          {renderInput()}
 
           <div
             className="flex items-center justify-between gap-4 pt-4 border-t"
@@ -186,7 +287,7 @@ export function ClientSurveyView({
             <button
               type="button"
               onClick={handleNext}
-              disabled={!currentAnswer}
+              disabled={isNextDisabled()}
               className="px-8 py-3.5 rounded-xl font-black text-sm uppercase tracking-wider shadow-lg transition-all flex items-center gap-2 hover:brightness-110 active:scale-[0.99] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
               style={{ backgroundColor: theme.secondary, color: theme.badgeText }}
             >
@@ -271,20 +372,42 @@ export function ClientSurveyView({
             <div className="font-bold uppercase tracking-wider text-slate-300">
               Survey Answers Captured
             </div>
-            {steps.map((st, idx) => (
-              <div
-                key={st.id}
-                className="flex justify-between border-b pb-2 last:border-0 last:pb-0"
-                style={{ borderColor: theme.border }}
-              >
-                <span className="text-slate-400">
-                  Q{idx + 1}: {st.title.slice(0, 35)}...
-                </span>
-                <span className="font-bold" style={{ color: theme.secondary }}>
-                  {answers[idx] || "—"}
-                </span>
-              </div>
-            ))}
+            {steps.map((st, idx) => {
+              const rawAns = answers[st.id as string | number];
+              let displayAns = "—";
+
+              if (rawAns) {
+                if (Array.isArray(rawAns)) {
+                  // For checkbox array, map IDs to labels
+                  displayAns = rawAns.map(val => {
+                    const found = st.apiOptions?.find(o => o.id === val);
+                    return found ? found.option : val;
+                  }).join(", ");
+                } else if (st.type === "dropdown" || st.type === "multiple-choice" || !st.type) {
+                  // Map single ID to label
+                  const found = st.apiOptions?.find(o => o.id === rawAns);
+                  displayAns = found ? found.option : String(rawAns);
+                } else {
+                  // text, date, image
+                  displayAns = String(rawAns);
+                }
+              }
+
+              return (
+                <div
+                  key={st.id}
+                  className="flex justify-between border-b pb-2 last:border-0 last:pb-0 gap-4"
+                  style={{ borderColor: theme.border }}
+                >
+                  <span className="text-slate-400 shrink-0">
+                    Q{idx + 1}: {st.title.slice(0, 35)}...
+                  </span>
+                  <span className="font-bold text-right break-words truncate" style={{ color: theme.secondary }} title={displayAns}>
+                    {displayAns.length > 30 ? displayAns.slice(0, 30) + '...' : displayAns}
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-3">

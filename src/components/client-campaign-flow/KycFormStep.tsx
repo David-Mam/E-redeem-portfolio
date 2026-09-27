@@ -48,7 +48,7 @@ interface KycFormStepProps {
   initialValues?: Record<string, string>;
   schema?: KycFieldDefinition[];
   onBack?: () => void;
-  onSubmit: (formData: Record<string, string>) => void;
+  onSubmit: (formData: Record<string, string>) => Promise<void>;
 }
 
 export function KycFormStep({
@@ -89,7 +89,7 @@ export function KycFormStep({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
 
@@ -110,10 +110,14 @@ export function KycFormStep({
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    
+    try {
+      await onSubmit(formData);
+    } catch (err: any) {
+      setErrors({ form: err.message || "Failed to submit. Please try again." });
+    } finally {
       setIsSubmitting(false);
-      onSubmit(formData);
-    }, 400);
+    }
   };
 
   return (
@@ -231,6 +235,13 @@ export function KycFormStep({
               </div>
             );
           })}
+          
+          {errors.form && (
+            <div className="flex items-center gap-2 rounded-[4px] border border-[#D64545]/40 bg-[#D64545]/10 p-3 text-xs font-medium text-[#D64545]">
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              <span>{errors.form}</span>
+            </div>
+          )}
 
           <div
             className="flex items-center justify-between gap-4 pt-4 border-t"

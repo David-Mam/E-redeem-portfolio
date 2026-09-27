@@ -86,34 +86,34 @@ function CampaignContent({
     location.pathname.endsWith("/requirement") ||
     location.pathname.endsWith("/result");
 
-  const handleHeroCodeSubmit = (e: React.FormEvent) => {
+  const handleHeroCodeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanCode = heroInputCode.trim().toUpperCase();
 
     if (!cleanCode) {
-      setHeroInputError("Please enter your promotional code.");
+      setHeroInputError("Please enter your details to proceed.");
       return;
     }
 
     setIsSubmittingHeroCode(true);
     setHeroInputError(null);
 
-    setTimeout(() => {
-      setIsSubmittingHeroCode(false);
-      if (cleanCode === "EXPIRED" || cleanCode === "INVALID" || cleanCode === "USED") {
-        setHeroInputError(
-          `Code "${cleanCode}" is invalid or expired. Try a sample valid code.`,
-        );
-        failCode?.(`Code "${cleanCode}" is invalid`);
-        return;
-      }
-
-      if (cleanCode.length >= 4) {
-        submitCode(cleanCode);
+    try {
+      if (campaign.formType === "codeless") {
+        // Bypass backend code validation for codeless campaigns
+        navigate({ to: `/campaigns/${campaign.slug}/activity` });
       } else {
-        setHeroInputError("Codes must be at least 4 alphanumeric characters.");
+        if (cleanCode.length >= 4) {
+          await submitCode(cleanCode);
+        } else {
+          setHeroInputError("Codes must be at least 4 alphanumeric characters.");
+        }
       }
-    }, 350);
+    } catch (err: any) {
+      setHeroInputError(err.message || "Invalid or expired code.");
+    } finally {
+      setIsSubmittingHeroCode(false);
+    }
   };
 
   return (
